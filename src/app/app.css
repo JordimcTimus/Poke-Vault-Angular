@@ -1,0 +1,125 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: black;
+  color: white;
+}
+p {
+
+}
+
+header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: black;
+  color: white;
+}
+
+
+header img{
+  justify-content: center;
+  height: 50px;
+  width: 50px;
+
+}
+
+header img .logo {
+  padding-right: 70px ;
+}
+
+header p {
+  width: 120px;
+  font-size: 1.5em;
+  font-family: Impact, serif  ;
+
+}
+
+header a {
+  color: white;
+  text-decoration: none;
+
+}
+
+nav {
+  background: linear-gradient(90deg, #333333 0%, #a90033 100%);
+  display: flex;
+  justify-content: center; /* Centra los elementos horizontalmente */
+  align-items: center;
+  width: 100%;
+  padding: 8px 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  font-family: Impact, sans-serif;
+}
+
+/* Estilos para los enlaces */
+nav a {
+  text-decoration: none;
+  border: none;
+  color: white;
+  font-size: 1.2em; /* Un poco más grande para que se parezca más a la imagen */
+  padding: 10px 15px; /* Aumenta el padding para que los botones sean más anchos */
+  transition: background-color 0.3s, transform 0.3s;
+  border-radius: 4px; /* Un ligero borde redondeado */
+}
+
+.enlace, .enlace:focus {
+  text-decoration: none;
+}
+
+.first-link {
+  display: flex;
+  align-items: center;
+}
+
+.first-link img {
+  margin-right: 5px;
+  height: 25px;
+  width: 25px;
+}
+
+/* BARRA LATERAL */
+.slider-box {
+  height: auto;
+  margin: 50px;
+  overflow: hidden;
+}
+.slider-box ul {
+  display: flex;
+  padding: 0;
+  width: 400%;
+  animation: slide 15s infinite alternate ease-in-out;
+}
+
+.slider-box li {
+  width: 100%;
+  list-style: none;
+  position: relative;
+}
+.slider-box img {
+  width: 9%;
+}
+
+@keyframes slide {
+  0% {margin-left: 0; }
+  20% {margin-left: 0; }
+
+  25% {margin-left: -100%; }
+  45% {margin-left: -100%; }
+
+  50% {margin-left: -200%; }
+  70% {margin-left: -200%; }
+
+  75% {margin-left: -300% }
+  100% {margin-left: -300%; }
+}
+
+@media(max-width: 991px) {
+  body {
+    padding: 30px;
+  }
+}
+
+
+
