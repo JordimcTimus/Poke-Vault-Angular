@@ -1,15 +1,17 @@
 
 <div class="container">
-  <form >
+  <form #registerForm="ngForm" (ngSubmit)="register()">
+
     <p> Benvingut </p>
-    <input type="text" placeholder="Nom"><br>
-    <input type="text" placeholder="Cognom"><br>
-    <input type="email" placeholder="Adreça"><br>
-    <input type="email" placeholder="Telefon"><br>
-    <input type="email" placeholder="Email"><br>
-    <input type="password" placeholder="Contrasenya"><br>
-    <input type="button" value="Inici sessió"><br>
-    <a href="app/app.html"> Tornar a la pagina principal </a>
+    <input type="text" name="nom" [(ngModel)]="user.nom" placeholder="Nom" required><br>
+    <input type="text" name="cognom" [(ngModel)]="user.cognom" placeholder="Cognom" required><br>
+    <input type="email" name="email" [(ngModel)]="user.email" placeholder="Email" required><br>
+    <input type="tel" name="telefon" [(ngModel)]="user.telefon" placeholder="Telefon" required><br>
+    <input type="password" name="password" [(ngModel)]="user.password" placeholder="Contrasenya" required><br>
+    <button type="submit"> Registrar-se </button>
+
+    <a routerLink="app/app.html"> Tornar a la pagina principal </a>
+
   </form>
 </div>
 
