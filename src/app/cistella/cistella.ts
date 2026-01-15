@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import {NgOptimizedImage} from '@angular/common';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-cistella',
   imports: [
-    NgOptimizedImage
+    NgOptimizedImage, RouterLink
   ],
   templateUrl: './cistella.html',
   styleUrl: './cistella.css',
