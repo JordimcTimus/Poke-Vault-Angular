@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
+import {NgOptimizedImage} from '@angular/common';
 
 @Component({
   selector: 'app-capcelera',
-  imports: [],
+  imports: [
+    NgOptimizedImage
+  ],
   templateUrl: './capcelera.html',
   styleUrl: './capcelera.css',
 })
