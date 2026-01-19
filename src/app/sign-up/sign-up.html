@@ -1,4 +1,4 @@
-
+<body>
 <div class="container">
   <form #registerForm="ngForm" (ngSubmit)="register()">
 
@@ -8,10 +8,10 @@
     <input type="email" name="email" [(ngModel)]="user.email" placeholder="Email" required><br>
     <input type="tel" name="telefon" [(ngModel)]="user.telefon" placeholder="Telefon" required><br>
     <input type="password" name="password" [(ngModel)]="user.password" placeholder="Contrasenya" required><br>
-    <button type="submit"> Registrar-se </button>
+    <button type="submit"> Registrar-se</button>
 
     <a routerLink="app/app.html"> Tornar a la pagina principal </a>
 
   </form>
 </div>
-
+</body>

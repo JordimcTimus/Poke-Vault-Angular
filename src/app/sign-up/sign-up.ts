@@ -4,12 +4,13 @@ import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
+  standalone: true,
   imports: [
     FormsModule,
     RouterLink
   ],
   templateUrl: './sign-up.html',
-  styleUrl: './sign-up.css',
+  styleUrls: ['./sign-up.css'],
 })
 export class SignUp {
 
