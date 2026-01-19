@@ -1,13 +1,18 @@
-import {RouterOutlet, Routes} from '@angular/router';
-import {CaixesPokemon} from './caixes-pokemon/caixes-pokemon';
-import {CartasPokemon} from './cartas-pokemon/cartas-pokemon';
-import {CatelegCartes} from './cateleg-cartes/cateleg-cartes';
-import {Cistella} from './cistella/cistella';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { LogIn  } from './log-in/log-in';
+import { SignUp } from './sign-up/sign-up';
 import {Index} from './index';
-import {LogIn} from './log-in/log-in';
-import {SignUp} from './sign-up/sign-up';
-import {TerminosDeUso} from './terminos-de-uso/terminos-de-uso';
-import {Capcelera} from './capcelera/capcelera';
 
 export const routes: Routes = [
+  { path: 'login', component: LogIn },
+  { path: 'sign-up', component: SignUp },
+  { path: 'index', component: Index },
+  { path: '', redirectTo: '/index', pathMatch: 'full' },
 ];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
