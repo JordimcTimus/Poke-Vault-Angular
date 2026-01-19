@@ -26,6 +26,7 @@ export class LogIn {
 
       if (usuarioActual.email === this.email && usuarioActual.password === this.password) {
         usuarioEncontrado = usuarioActual;
+        alert("USUARIO CONECTADO")
         break;
       }
     }
