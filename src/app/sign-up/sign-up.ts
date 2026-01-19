@@ -21,7 +21,19 @@ export class SignUp {
     password: ''
   };
 
-  protected register() {
+  static registreUsers: any[] = [];
 
+  protected register() {
+    SignUp.registreUsers.push({ ...this.user }); // Se hace una copia del objeto
+
+    this.user = {
+      nom: '',
+      cognom: '',
+      telefon: '',
+      email: '',
+      password: ''
+    };
+
+    console.log('Usuaris registrats:', SignUp.registreUsers);
   }
 }
