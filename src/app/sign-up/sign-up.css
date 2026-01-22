@@ -46,7 +46,7 @@ form a:active {
   text-shadow: none;
 }
 
-form input {
+form input, button {
   background: rgba(255,255,255,0.1);
   width: 200px;
   padding: 1em;
@@ -61,6 +61,8 @@ form input {
   font-weight: 500;
   transition: all 0.2s ease-in-out;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+  text-align: center;
+
 }
 
 form input:hover {
