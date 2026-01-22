@@ -1,12 +1,23 @@
 header {
   width: 100%;
-  display: flex;
+  display: inline-flex;
   justify-content: space-between;
   align-items: center;
   background-color: black;
   color: white;
+  padding: 10px;
 }
 
+.usuario-logueado {
+  width: 100px;
+}
+
+.pagina {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 15px;
+}
 
 header img{
   justify-content: center;
@@ -53,3 +64,4 @@ nav a {
   transition: background-color 0.3s, transform 0.3s;
   border-radius: 4px; /* Un ligero borde redondeado */
 }
+
