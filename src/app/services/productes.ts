@@ -18,11 +18,8 @@ export class Productes {
     ]
   }
 
-  private getProducte(id: number){
-    for (let i = 0; i < this.llistaCaixes.length; i++)
-      if (this.llistaCaixes[i].quantitat > 0) {
-        console.log("FUNCIONAAA")
-        return this.llistaCaixes[id];
-      }
+  public getProducte(id: number){
+    this.llistaCaixes[id].quantitat++
+    console.log(this.llistaCaixes[id].quantitat)
   }
 }
