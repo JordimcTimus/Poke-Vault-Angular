@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import {NgOptimizedImage} from '@angular/common';
 import {RouterLink} from '@angular/router';
+import {Productes} from '../services/productes';
+
 
 @Component({
   selector: 'app-capcelera',
