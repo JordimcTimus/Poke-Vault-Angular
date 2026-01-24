@@ -17,7 +17,7 @@ export class Index {
   constructor(private s: Productes) {
     this.id = 0;
   }
-  public enviarCarrito (id:any){
-    this.s.getProducte(id)
+  public enviarCarritoCaixe (id:any){
+    this.s.getProducteCaixe(id)
   }
 }

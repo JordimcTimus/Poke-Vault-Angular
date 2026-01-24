@@ -18,7 +18,7 @@ export class Productes {
     ]
   }
 
-  public getProducte(id: number){
+  public getProducteCaixe(id: number){
     this.llistaCaixes[id].quantitat++
     console.log(this.llistaCaixes[id].quantitat)
   }
