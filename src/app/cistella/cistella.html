@@ -1,7 +1,16 @@
 <app-capcelera/>
 <h1> La meva Cistella </h1>
 <h2> Articles: </h2>
-<div class="productes" >
+<div class="productes">
+  @for (item of llistaCarritoCaixes; track item.id) {
+    <img ngSrc="{{item.img}}" height="700" width="700">
+    <div class="producto">
+      <p class="titulo">{{ item.nombre }}</p><br>
+      <p class="texto">Aquesta booster box de Pokémon inclou: <br>
+        {{item.desc}}
+      </p>
+    </div>
+  }
 </div>
 
 <div class="productes">

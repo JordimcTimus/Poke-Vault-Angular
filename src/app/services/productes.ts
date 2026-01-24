@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class Productes {
   public llistaCaixes: any[] = [];
+  public llistaCartes: any[] = []
 
 
   constructor() {
@@ -13,9 +14,19 @@ export class Productes {
       nombre: "Caixa eevee",
       desc: "caixa to guapa",
       preu: 100,
-      quantitat: 0
+      quantitat: 0,
+      img: "assets/caja_eevee.png"
     }
     ]
+    // @ts-ignore
+    this.llistaCartes[{
+      id: 0,
+      nombre: "Bulbasaur",
+      desc: "caixa to guapa",
+      preu: 10,
+      quantitat: 0,
+      img: "assets/Bulbasaur.jpg/"
+    }]
   }
 
   public getProducteCaixe(id: number){
