@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class Productes {
-  private llistaCaixes: any[] = [];
+  public llistaCaixes: any[] = [];
 
 
   constructor() {
@@ -13,7 +13,7 @@ export class Productes {
       nombre: "Caixa eevee",
       desc: "caixa to guapa",
       preu: 100,
-      quantitat: 1
+      quantitat: 0
     }
     ]
   }
