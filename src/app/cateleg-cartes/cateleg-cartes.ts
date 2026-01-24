@@ -17,6 +17,7 @@ export class CatelegCartes {
   }
 
   afegirCarta(id:number, nom: string, preu: number){
+
   }
 
 }

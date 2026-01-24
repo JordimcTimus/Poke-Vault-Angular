@@ -13,7 +13,7 @@ import {TerminosDeUso} from './terminos-de-uso/terminos-de-uso';
 export const routes: Routes = [
   { path: 'caixesPokemon', component: CaixesPokemon},
   { path: 'capcelera', component: Capcelera},
-  { path: 'cartesPokemon', component: CartasPokemon},
+  { path: 'cartas', component: CartasPokemon},
   { path: 'catalegCartas', component: CatelegCartes},
   { path: 'cistella', component: Cistella},
   { path: 'index', component: Index },
