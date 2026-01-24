@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import {NgOptimizedImage} from '@angular/common';
+import {NgIf, NgOptimizedImage} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import { AuthService } from '../clientes';
-import {Productes} from '../services/productes';
 
 
 @Component({
@@ -11,6 +10,7 @@ import {Productes} from '../services/productes';
   imports: [
     NgOptimizedImage,
     RouterLink,
+    NgIf,
   ],
   templateUrl: './capcelera.html',
   styleUrl: './capcelera.css',
