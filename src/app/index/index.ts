@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {NgOptimizedImage} from '@angular/common';
 import {Capcelera} from '../capcelera/capcelera';
 import {RouterLink} from '@angular/router';
+import {Productes} from '../services/productes';
 
 @Component({
   selector: 'app-index',
@@ -12,5 +13,11 @@ import {RouterLink} from '@angular/router';
   styleUrl: './index.css',
 })
 export class Index {
-
+  id:number
+  constructor(private s: Productes) {
+    this.id = 0;
+  }
+  private enviarCarrito (id:any){
+    this.s.
+  }
 }

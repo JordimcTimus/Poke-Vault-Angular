@@ -13,4 +13,10 @@ import {Capcelera} from '../capcelera/capcelera';
 })
 export class CatelegCartes {
 
+  constructor() {
+  }
+
+  afegirCarta(id:number, nom: string, preu: number){
+  }
+
 }
