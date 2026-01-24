@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {NgOptimizedImage} from '@angular/common';
+import {NgIf, NgOptimizedImage} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import { AuthService } from '../clientes';
 
@@ -9,15 +9,20 @@ import { AuthService } from '../clientes';
   imports: [
     NgOptimizedImage,
     RouterLink,
+    NgIf,
   ],
   templateUrl: './capcelera.html',
   styleUrl: './capcelera.css',
 })
 export class Capcelera {
 
-  constructor(private auth: AuthService) {}
+  constructor(public auth: AuthService) {}
 
-  get loggedInUser() {
-    return this.auth.loggedInUser;
+  logout() {
+    const confirmacio = confirm('¿Seguro que quieres salir de la cuenta?');
+
+    if (confirmacio) {
+      this.auth.logout();
+    }
   }
 }

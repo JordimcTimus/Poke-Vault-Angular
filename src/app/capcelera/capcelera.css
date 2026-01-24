@@ -1,47 +1,57 @@
 header {
   width: 100%;
-  display: inline-flex;
-  justify-content: space-between;
+  display: flex;              /* Flex principal */
+  justify-content: space-between; /* Separar izquierda/derecha */
   align-items: center;
   background-color: black;
   color: white;
-  padding: 10px;
+  padding: 10px 20px;
 }
 
-.usuario-logueado {
-  width: 100px;
-}
-
-.pagina {
+/* Contenedor izquierda */
+.header-left {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  gap: 15px;
+  gap: 10px; /* espacio entre logo y nombre */
 }
 
-header img{
-  justify-content: center;
+/* Contenedor derecha */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* espacio entre usuario, logout, icons */
+}
+
+/* Logo */
+header img.logo {
   height: 50px;
   width: 50px;
-
 }
 
-header img .logo {
-  padding-right: 70px ;
-}
-
-header p {
-  width: 120px;
+/* Nombre del sitio */
+header .site-name {
   font-size: 1.5em;
-  font-family: Impact, serif  ;
-
+  font-family: Impact, serif;
+  margin: 0;
 }
 
-header a {
-  color: white;
-  text-decoration: none;
-
+/* Usuario logueado y logout */
+.usuario-logueado,
+.logout {
+  font-size: 1em;
+  cursor: pointer;
 }
+
+.logout:hover {
+  color: red;
+}
+
+/* Iconos login y cesta */
+.header-right a img {
+  height: 40px;
+  width: 40px;
+}
+
 
 nav {
   background: linear-gradient(90deg, #333333 0%, #a90033 100%);
@@ -63,5 +73,10 @@ nav a {
   padding: 10px 15px; /* Aumenta el padding para que los botones sean más anchos */
   transition: background-color 0.3s, transform 0.3s;
   border-radius: 4px; /* Un ligero borde redondeado */
+}
+
+.logout:hover {
+  color: red;
+  cursor:pointer;
 }
 

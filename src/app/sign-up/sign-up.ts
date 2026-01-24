@@ -27,6 +27,10 @@ export class SignUp {
   constructor(private auth: AuthService) {}
 
   protected register() {
+    const users: any[] = JSON.parse(localStorage.getItem('users') || '[]');
+    users.push(this.user);
+    localStorage.setItem('users', JSON.stringify(users));
+
     this.auth.register(this.user);
 
     this.user = {

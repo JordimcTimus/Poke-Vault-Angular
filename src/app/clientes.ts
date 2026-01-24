@@ -12,8 +12,17 @@ export interface Usuari {
   providedIn: 'root'
 })
 export class AuthService {
+
   private registreUsers: Usuari[] = [];
   private _loggedInUser: Usuari | null = null;
+
+  constructor() {
+    // Cargar usuarios guardados
+    this.registreUsers = JSON.parse(localStorage.getItem('users') || '[]');
+
+    // Cargar sesión si existe
+    this._loggedInUser = JSON.parse(localStorage.getItem('loggedUser') || 'null');
+  }
 
   get users(): Usuari[] {
     return this.registreUsers;
@@ -23,11 +32,20 @@ export class AuthService {
     return this._loggedInUser;
   }
 
+  // ======================
+  // REGISTER
+  // ======================
   register(user: Usuari) {
     this.registreUsers.push({ ...user });
+
+    localStorage.setItem('users', JSON.stringify(this.registreUsers));
+
     console.log('Usuaris registrats:', this.registreUsers);
   }
 
+  // ======================
+  // LOGIN
+  // ======================
   login(email: string, password: string): boolean {
     const trobat = this.registreUsers.find(
       u => u.email === email && u.password === password
@@ -35,14 +53,18 @@ export class AuthService {
 
     if (trobat) {
       this._loggedInUser = trobat;
+      localStorage.setItem('loggedUser', JSON.stringify(trobat));
       return true;
     }
 
-    this._loggedInUser = null;
     return false;
   }
 
+  // ======================
+  // LOGOUT
+  // ======================
   logout() {
     this._loggedInUser = null;
+    localStorage.removeItem('loggedUser');
   }
 }
