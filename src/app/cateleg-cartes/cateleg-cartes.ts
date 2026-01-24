@@ -16,8 +16,8 @@ export class CatelegCartes {
   constructor() {
   }
 
-  afegirCarta(id:number, nom: string, preu: number){
+
+  protected afegirCarta(number: number, bulbasour: string, number2: number) {
 
   }
-
 }

@@ -18,15 +18,36 @@ export class Productes {
       img: "assets/caja_eevee.png"
     }
     ]
-    // @ts-ignore
-    this.llistaCartes[{
+
+    this.llistaCartes = [{
       id: 0,
       nombre: "Bulbasaur",
-      desc: "caixa to guapa",
+      desc: "Bulbasaur",
       preu: 10,
       quantitat: 0,
-      img: "assets/Bulbasaur.jpg/"
-    }]
+      img: "assets/Bulbasaur.jpg"
+    }
+    ]
+
+    this.llistaCartes = [{
+      id: 1,
+      nombre: "Charizard V",
+      desc: "Charizard V",
+      preu: 20,
+      quantitat: 0,
+      img: "assets/Charizard.jpg"
+    }
+    ]
+
+    this.llistaCartes = [{
+      id: 2,
+      nombre: "Mewtwo",
+      desc: "Mewtwo",
+      preu: 30,
+      quantitat: 0,
+      img: "assets/Mewtwo.jpg"
+    }
+    ]
   }
 
   public getProducteCaixe(id: number){
