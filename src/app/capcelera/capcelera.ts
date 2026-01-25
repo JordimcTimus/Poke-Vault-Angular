@@ -13,7 +13,11 @@ import { AuthService } from '../clientes';
   templateUrl: './capcelera.html',
   styleUrl: './capcelera.css',
 })
+
+
 export class Capcelera {
+  constructor(public auth: AuthService) {}
+
   logout() {
     const confirmacio = confirm('¿Seguro que quieres salir de la cuenta?');
 
