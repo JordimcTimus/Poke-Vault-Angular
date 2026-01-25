@@ -22,6 +22,11 @@
 
 .precio {
   font-size: 1.5em;
-  color: #ffffff;
+  color: #000000;
 
+}
+
+button {
+  width: 200px;
+  height: 40px;
 }

@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import {NgOptimizedImage} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {Capcelera} from '../capcelera/capcelera';
-import {CartasPokemon} from '../cartas-pokemon/cartas-pokemon';
 
 @Component({
   selector: 'app-cateleg-cartes',
@@ -17,8 +16,8 @@ export class CatelegCartes {
   constructor() {
   }
 
-  afegirCarta(id:number, nom: string, preu: number){
+
+  protected afegirCarta(number: number, bulbasour: string, number2: number) {
 
   }
-
 }

@@ -2,12 +2,15 @@
 <h1> La meva Cistella </h1>
 <h2> Articles: </h2>
 <div class="productes">
-  <img ngSrc="assets/caja_eevee.png" alt="Poké Ball" height="700" width="700"/>
-  <div class="producto">
-    <p class="titulo">Booster Bundle Prismatic Evolutions - Anglès 59,95€</p><br>
-    <p class="texto">SV 8.5 Evolucions Prismàtiques Booster Bundle – Pokemon TCG en anglès. <br>
-      Inclou sis sobres de reforç de Scarlet & Violet — Evolucions Prismàtiques.</p>
-  </div>
+  @for (item of llistaCarritoCaixes; track item.id) {
+    <img ngSrc="{{item.img}}" height="700" width="700">
+    <div class="producto">
+      <p class="titulo">{{ item.nombre }}</p><br>
+      <p class="texto">Aquesta booster box de Pokémon inclou: <br>
+        {{item.desc}}
+      </p>
+    </div>
+  }
 </div>
 
 <div class="productes">
