@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {NgOptimizedImage} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {Productes} from '../services/productes';
+import { AuthService } from '../clientes';
 
 
 @Component({
@@ -13,5 +14,11 @@ import {Productes} from '../services/productes';
   styleUrl: './capcelera.css',
 })
 export class Capcelera {
+  logout() {
+    const confirmacio = confirm('¿Seguro que quieres salir de la cuenta?');
 
+    if (confirmacio) {
+      this.auth.logout();
+    }
+  }
 }
