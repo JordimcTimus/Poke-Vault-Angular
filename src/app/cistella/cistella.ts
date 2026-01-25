@@ -16,9 +16,11 @@ import {Productes} from '../services/productes';
 })
 export class Cistella implements OnInit {
   llistaCarritoCaixes: any[] = []
+  llistaCarritoCartes: any[] = []
 
   constructor(private s: Productes) {
     this.llistaCarritoCaixes = [{}]
+    this.llistaCarritoCartes = [{}]
   }
 
   ngOnInit(): void {
@@ -27,14 +29,10 @@ export class Cistella implements OnInit {
         this.llistaCarritoCaixes.push(this.s.llistaCaixes[i])
       }
     }
+    for (let i = 0; i < this.s.llistaCartes.length; i++) {
+      if (this.s.llistaCartes[i].quantitat > 0) {
+        this.llistaCarritoCartes.push(this.s.llistaCartes[i])
+      }
+    }
   }
-
-  // @ts-ignore
-  //getProductesCaixes () {
-  //for (let i = 0; i < this.s.llistaCaixes.length; i++) {
-  //if (this.s.llistaCaixes[i].quantitat > 0) {
-  //this.llistaCarritoCaixes.push(this.s.llistaCaixes[i])
-  //}
-  //}
-  //return this.llistaCarritoCaixes
 }
