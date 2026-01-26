@@ -15,11 +15,11 @@ h2 {
 }
 
 .productes img {
-  height: 30em;
+  height: 25em;
 }
 
 .producto {
-  background-color: black;
+  background-color:  rgb(33 37 41) ;
   padding-left: 20px;
   padding-right: 3em;
 }
@@ -38,7 +38,7 @@ h2 {
 
 .precio {
   font-size: 2em;
-  color: gray;
+  color: white;
   margin-top: 0px;
 }
 
