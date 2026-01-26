@@ -78,7 +78,7 @@ export class Productes {
         nombre: "Lata Team Rocket - Español",
         descripcio: "×4 Sobres de expansión variados." +
           "3 Cartas promocionales",
-        preu: "29,95€",
+        preu: 29.95,
         texquant: "-- Cantidad:",
         quantitat: 0,
         imagen: "/assets/LataTeamRocket.png"
@@ -162,5 +162,9 @@ export class Productes {
     if (item && item.quantitat > 0) {
       item.quantitat--;
     }
+  }
+  resetCarrito() {
+    this.llistaCaixes.forEach(item => item.quantitat = 0);
+    this.llistaCartes.forEach(item => item.quantitat = 0);
   }
 }
