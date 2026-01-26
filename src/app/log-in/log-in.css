@@ -17,6 +17,8 @@ form {
   box-shadow: 20px 20px 40px -6px rgba(0,0,0,0.2);
   text-align: center;
   position: relative;
+  background-color: #333333;
+  border: gray 2px solid;
 
   p {
     font-weight: 500;
@@ -42,7 +44,7 @@ form {
     }
   }
 
-  input {
+  input, button {
     background: transparent;
     width: 200px;
     padding: 1em;
@@ -56,6 +58,7 @@ form {
     font-weight: 500;
     transition: all 0.2s ease-in-out;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    text-align: center;
 
     &:hover {
       background: rgba(255,255,255,0.1);

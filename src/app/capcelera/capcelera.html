@@ -1,11 +1,22 @@
 <header>
-  <p>PokéValue</p>
-  <a routerLink="/index"> <img class="logo" ngSrc="/assets/Logo.png" alt="Hola no va" height="212" width="204"> </a>
+  <!-- IZQUIERDA -->
+  <div class="header-left">
+    <a routerLink="/index">
+      <img class="logo" ngSrc="/assets/Logo.png" alt="Logo" height="50" width="50">
+    </a>
+    <p class="site-name">PokéValue</p>
+  </div>
 
-  <div>
-    <!-- Imatges i link del logIn i la cistella-->
-    <a routerLink="/login"> <img ngSrc="assets/Login_Icon.jpg" height="450" width="450"> </a>
-    <a routerLink="/cistella"> <img ngSrc="assets/compra.webp" height="628" width="800"> </a>
+  <!-- DERECHA -->
+  <div class="header-right">
+    <p class="usuario-logueado">{{ auth.loggedInUser?.nom }}</p>
+    <p class="logout" *ngIf="auth.loggedInUser" (click)="logout()">Salir</p>
+    <a routerLink="/login">
+      <img ngSrc="assets/Login_Icon.jpg" height="50" width="50">
+    </a>
+    <a routerLink="/cistella">
+      <img ngSrc="assets/compra.webp" height="50" width="50">
+    </a>
   </div>
 </header>
 

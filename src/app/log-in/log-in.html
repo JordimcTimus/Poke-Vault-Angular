@@ -1,6 +1,6 @@
 <body>
 <div class="container">
-  <form #loginForm="ngForm" (ngSubmit)="login()">
+  <form (ngSubmit)="login()">
     <p> Benvingut </p>
 
     <input type="email" name="email" [(ngModel)]="email" placeholder="Email" required><br>

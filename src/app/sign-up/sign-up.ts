@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {RouterLink} from '@angular/router';
+import { AuthService } from '../clientes';
+
 
 @Component({
   selector: 'app-sign-up',
@@ -22,10 +24,14 @@ export class SignUp {
     password: ''
   };
 
-  static registreUsers: any[] = [];
+  constructor(private auth: AuthService) {}
 
   protected register() {
-    SignUp.registreUsers.push({ ...this.user }); // Se hace una copia del objeto
+    const users: any[] = JSON.parse(localStorage.getItem('users') || '[]');
+    users.push(this.user);
+    localStorage.setItem('users', JSON.stringify(users));
+
+    this.auth.register(this.user);
 
     this.user = {
       nom: '',
@@ -35,6 +41,6 @@ export class SignUp {
       password: ''
     };
 
-    console.log('Usuaris registrats:', SignUp.registreUsers);
+    console.log('Usuaris registrats:', this.user);
   }
 }

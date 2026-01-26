@@ -1,17 +1,28 @@
 import { Component } from '@angular/core';
-import {NgOptimizedImage} from '@angular/common';
+import {NgIf, NgOptimizedImage} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {Productes} from '../services/productes';
+import { AuthService } from '../clientes';
 
 
 @Component({
   selector: 'app-capcelera',
   imports: [
-    NgOptimizedImage, RouterLink
+    NgOptimizedImage, RouterLink, NgIf
   ],
   templateUrl: './capcelera.html',
   styleUrl: './capcelera.css',
 })
-export class Capcelera {
 
+
+export class Capcelera {
+  constructor(public auth: AuthService) {}
+
+  logout() {
+    const confirmacio = confirm('¿Seguro que quieres salir de la cuenta?');
+
+    if (confirmacio) {
+      this.auth.logout();
+    }
+  }
 }

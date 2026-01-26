@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import {RouterLink} from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { SignUp } from '../sign-up/sign-up';
+import { AuthService } from '../clientes';
+
 @Component({
   selector: 'app-login',
+  standalone: true,
   imports: [
     FormsModule,
     RouterLink,
@@ -15,24 +17,14 @@ export class LogIn {
   email: string = '';
   password: string = '';
 
-  loggedInUser: any = null;
+  constructor(private auth: AuthService) {}
 
   protected login() {
 
-    let usuarioEncontrado: any = null;
+    const ok = this.auth.login(this.email, this.password);
 
-    for (let i = 0; i < SignUp.registreUsers.length; i++) {
-      let usuarioActual = SignUp.registreUsers[i];
-
-      if (usuarioActual.email === this.email && usuarioActual.password === this.password) {
-        usuarioEncontrado = usuarioActual;
-        alert("USUARIO CONECTADO")
-        break;
-      }
-    }
-
-    if (usuarioEncontrado !== null) {
-      this.loggedInUser = usuarioEncontrado;
+    if (ok) {
+      alert('USUARIO CONECTADO');
       this.email = '';
       this.password = '';
     } else {
