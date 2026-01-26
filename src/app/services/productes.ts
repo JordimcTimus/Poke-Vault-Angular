@@ -151,21 +151,16 @@ export class Productes {
     console.log(this.llistaCartes[id].quantitat)
   }
   sumarCaixa(id: number) {
-    // @ts-ignore
-    this.llistaCaixes(id).quantitat + 1
-    // @ts-ignore
-    console.log(this.llistaCaixes(id).quantitat)
+    const item = this.llistaCaixes.find(c => c.id === id);
+    if (item) {
+      item.quantitat++;
+    }
   }
 
   restarCaixa(id: number) {
-    // @ts-ignore
-    this.llistaCaixes(id).quantitat - 1
-    // @ts-ignore
-    console.log(this.llistaCaixes(id).quantitat)
-    // @ts-ignore
-    if (this.llistaCaixes(id).quantitat > 0) {
-      // @ts-ignore
-      this.llistaCaixes(id).quantitat = 0;
+    let item = this.llistaCaixes.find(c => c.id === id);
+    if (item && item.quantitat > 0) {
+      item.quantitat--;
     }
   }
 }
