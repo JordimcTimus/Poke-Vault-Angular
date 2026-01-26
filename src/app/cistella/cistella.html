@@ -10,7 +10,7 @@
               <div class="producto">
                 <p class="titulo">{{item.nombre}}</p>
                 <p class="texto">{{item.descripcio}}</p> <br>
-                <p class="texto">{{item.preu}} {{item.texquant}} {{item.quantitat}}</p>
+                <p class="texto">{{ item.preu | currency:'EUR':'symbol':'1.2-2' }} {{item.texquant}} {{item.quantitat}}</p>
                 <button (click)="sumar(item.id)">+</button>
                 <button (click)="restar(item.id)">-</button>
               </div>
@@ -33,6 +33,6 @@
 
 <div class="continuar-pedido">
   <button class="btn-continuar" (click)="resetCarrito()">CONTINUAR COMANDA</button>
-  <span class="totalPrecio"> Total Precio: {{""}} </span>
+  <span class="totalPrecio"> Total Precio: {{totalPreu()}} </span>
 </div>
 

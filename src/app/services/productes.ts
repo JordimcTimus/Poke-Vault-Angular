@@ -13,7 +13,7 @@ export class Productes {
       id: 0,
       nombre: "Booster Bundle Prismatic Evolutions - Ingles",
       descripcio: "Incluye seis sobres de refuerzo de Scarlet & Violet — Evoluciones Prismaticas",
-      preu: "59,95€",
+      preu: 59.95,
       texquant: "-- Cantidad:",
       quantitat: 0,
       imagen: "/assets/caja_eevee.png"
@@ -22,7 +22,7 @@ export class Productes {
         id: 1,
         nombre: "Caja Inferno X M2 - Japones",
         descripcio: "30 sobres con 5 cartas cada uno de la colección Inferno X M2 en Japonés.",
-        preu: "119,95€",
+        preu: 119.95,
         texquant: "-- Cantidad:",
         quantitat: 0,
         imagen: "/assets/CajaCharizardAzul.png"
@@ -31,7 +31,7 @@ export class Productes {
         id: 2,
         nombre: "ETB Caja de Entrenador Elite Mega Evolución Gardevoir - Españo",
         descripcio: "15 sobres de mejora de Mega Evolucion de JCC Pokémon TCG",
-        preu: "64,95€",
+        preu: 64.95,
         texquant: "-- Cantidad:",
         quantitat: 0,
         imagen: "/assets/CajaMegaGardevoir.png"
@@ -40,7 +40,7 @@ export class Productes {
         id: 3,
         nombre: "ETB Caja de Entrenador Elite Mega Evolución Lucario - Español",
         descripcio: "9 sobres de mejora de Mega Evolucion de JCC Pokémon TCG",
-        preu: "64,95€",
+        preu: 64.95,
         texquant: "-- Cantidad:",
         quantitat: 0,
         imagen: "/assets/CajaMegaLucario.png"
@@ -49,7 +49,7 @@ export class Productes {
         id: 4,
         nombre: "Booster Bundle White Flare - Ingles",
         descripcio: "Contiene 6 sobres de refuerzo de Scarlet & Violet — White Flare.",
-        preu: "49,95€",
+        preu: 49.95,
         texquant: "-- Cantidad:",
         quantitat: 0,
         imagen: "/assets/CajaReshiram.png"
@@ -58,7 +58,7 @@ export class Productes {
         id: 5,
         nombre: "Booster Bundle Black Bolt - Ingles",
         descripcio: "Contiene 6 sobres de refuerzo de Scarlet & Violet — White Flare.",
-        preu: "49,95€",
+        preu: 49.95,
         texquant: "-- Cantidad:",
         quantitat: 0,
         imagen: "/assets/CajaZekrom.png"
@@ -68,7 +68,7 @@ export class Productes {
         nombre: "Caja Colección Mewtwo EX del Team Rocket - Español",
         descripcio: "1 carta holográfica de promoción de Mewtwo ex del Team Rocket" +
           "4 sobres de mejora de JCC Pokemon TCG",
-        preu: "29,95€",
+        preu: 29.95,
         texquant: "-- Cantidad:",
         quantitat: 0,
         imagen: "/assets/ColecciónMewtwo.png"
@@ -89,7 +89,7 @@ export class Productes {
         descripcio: "1 carta holográfica de promoción de Mega-Latias EX" +
           "1 carta holográfica Jumbo de gran tamaño con efecto 3D de Mega-Latias EX" +
           " 4 sobres de mejora de JCC Pokemon TCG",
-        preu: "29,95€",
+        preu: 29.95,
         texquant: "-- Cantidad:",
         quantitat: 0,
         imagen: "/assets/PaqueteMegaLatios.png"
@@ -98,7 +98,7 @@ export class Productes {
         id: 9,
         nombre: "Caja de 36 Sobres de Mega Evolución - Español",
         descripcio: "36 sobres de mejora de MegaEvolution | MegaEvolución en español",
-        preu: "199,95€",
+        preu: 199.95,
         texquant: "-- Cantidad:",
         quantitat: 0,
         imagen: "/assets/PaquetesMegaEvo.png"
@@ -110,7 +110,7 @@ export class Productes {
           "1 Carta Promocional" +
           "65 Fundas para Cartas" +
           "1 Caja del Coleccionista con Separadores",
-        preu: "64,95€",
+        preu: 64.95,
         texquant: "-- Cantidad:",
         quantitat: 0,
         imagen: "/assets/Caja%20Mascara%20Crepuscular.png"
@@ -120,7 +120,7 @@ export class Productes {
     this.llistaCartes = [{
         id: 0,
         nombre: "Charizard",
-        preu: "19,95€",
+        preu: 19.95,
         quantitat: 0,
         texquant: "-- Cantidad:",
         img: "assets/Charizard.jpg"
@@ -128,14 +128,14 @@ export class Productes {
       {
         id: 1,
         nombre: "Mewtwo",
-        preu: "15,50€",
+        preu: 15.50,
         quantitat: 0,
         img: "assets/Mewtwo.jpg"
     },
       {
         id: 2,
         nombre: "Bulbasaur",
-        preu: "30,00€",
+        preu: 30.00,
         quantitat: 0,
         img: "assets/Bulbasaur.jpg"
     }]
@@ -166,5 +166,12 @@ export class Productes {
   resetCarrito() {
     this.llistaCaixes.forEach(item => item.quantitat = 0);
     this.llistaCartes.forEach(item => item.quantitat = 0);
+  }
+  // @ts-ignore
+  totalPreu(): number {
+    let preuCaixes = this.llistaCaixes.forEach(item => item.preu * item.quantitat);
+    let preuCartes = this.llistaCartes.forEach(item => item.preu * item.quantitat);
+    // @ts-ignore
+    return preuCaixes + preuCartes;
   }
 }
