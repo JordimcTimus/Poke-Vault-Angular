@@ -126,7 +126,7 @@ export class Productes {
         img: "assets/Charizard.jpg"
     },
       {
-        id: 2,
+        id: 1,
         nombre: "Mewtwo",
         preu: "15,50€",
         quantitat: 0,
