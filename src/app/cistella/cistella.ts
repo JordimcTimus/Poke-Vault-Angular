@@ -35,4 +35,15 @@ export class Cistella implements OnInit {
       }
     }
   }
+
+  sumar(id: number) {
+    this.s.sumarCaixa(id)
+  }
+
+  restar(id: number) {
+    this.s.restarCaixa(id)
+  }
+  resetCarrito(){
+    this.s.resetCarrito();
+  }
 }

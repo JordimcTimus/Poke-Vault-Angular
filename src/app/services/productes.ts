@@ -78,7 +78,7 @@ export class Productes {
         nombre: "Lata Team Rocket - Español",
         descripcio: "×4 Sobres de expansión variados." +
           "3 Cartas promocionales",
-        preu: "29,95€",
+        preu: 29.95,
         texquant: "-- Cantidad:",
         quantitat: 0,
         imagen: "/assets/LataTeamRocket.png"
@@ -149,5 +149,22 @@ export class Productes {
   public getProducteCarta(id: number){
     this.llistaCartes[id].quantitat = 1
     console.log(this.llistaCartes[id].quantitat)
+  }
+  sumarCaixa(id: number) {
+    const item = this.llistaCaixes.find(c => c.id === id);
+    if (item) {
+      item.quantitat++;
+    }
+  }
+
+  restarCaixa(id: number) {
+    let item = this.llistaCaixes.find(c => c.id === id);
+    if (item && item.quantitat > 0) {
+      item.quantitat--;
+    }
+  }
+  resetCarrito() {
+    this.llistaCaixes.forEach(item => item.quantitat = 0);
+    this.llistaCartes.forEach(item => item.quantitat = 0);
   }
 }
