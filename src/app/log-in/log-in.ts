@@ -19,7 +19,7 @@ export class LogIn {
 
   constructor(private auth: AuthService) {}
 
-  //logearse
+  //logearse 1
   protected login() {
 
     const ok = this.auth.login(this.email, this.password);
