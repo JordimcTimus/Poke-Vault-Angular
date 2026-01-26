@@ -31,8 +31,4 @@ export class LogIn {
       alert('Usuari o contraseña incorrectos');
     }
   }
-
-  get loggedInUser() {
-    return this.auth.loggedInUser;
-  }
 }

@@ -1,6 +1,6 @@
 <body>
 <div class="container">
-  <form #registerForm="ngForm" (ngSubmit)="register()">
+  <form (ngSubmit)="register()">
 
     <p> Benvingut </p>
     <input type="text" name="nom" [(ngModel)]="user.nom" placeholder="Nom" required><br>
