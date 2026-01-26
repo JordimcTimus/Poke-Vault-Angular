@@ -35,4 +35,23 @@ export class Cistella implements OnInit {
       }
     }
   }
+
+  sumar(id: number) {
+    // @ts-ignore
+    this.s.llistaCaixes(id).quantitat + 1
+    // @ts-ignore
+    console.log(this.s.llistaCaixes(id).quantitat)
+  }
+
+  restar(id: number) {
+    // @ts-ignore
+    this.s.llistaCaixes(id).quantitat - 1
+    // @ts-ignore
+    console.log(this.s.llistaCaixes(id).quantitat)
+    // @ts-ignore
+    if (this.s.llistaCaixes(id).quantitat > 0) {
+      // @ts-ignore
+      this.s.llistaCaixes(id).quantitat = 0;
+    }
+  }
 }

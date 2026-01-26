@@ -11,6 +11,8 @@
                 <p class="titulo">{{item.nombre}}</p>
                 <p class="texto">{{item.descripcio}}</p> <br>
                 <p class="texto">{{item.preu}} {{item.texquant}} {{item.quantitat}}</p>
+                <button (click)="sumar(item.id)">+</button>
+                <button (click)="restar(item.id)">-</button>
               </div>
         </div>
       </tr>
