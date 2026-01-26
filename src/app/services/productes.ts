@@ -150,4 +150,22 @@ export class Productes {
     this.llistaCartes[id].quantitat = 1
     console.log(this.llistaCartes[id].quantitat)
   }
+  sumarCaixa(id: number) {
+    // @ts-ignore
+    this.llistaCaixes(id).quantitat + 1
+    // @ts-ignore
+    console.log(this.llistaCaixes(id).quantitat)
+  }
+
+  restarCaixa(id: number) {
+    // @ts-ignore
+    this.llistaCaixes(id).quantitat - 1
+    // @ts-ignore
+    console.log(this.llistaCaixes(id).quantitat)
+    // @ts-ignore
+    if (this.llistaCaixes(id).quantitat > 0) {
+      // @ts-ignore
+      this.llistaCaixes(id).quantitat = 0;
+    }
+  }
 }
