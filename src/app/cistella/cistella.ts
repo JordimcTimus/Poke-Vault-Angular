@@ -43,4 +43,7 @@ export class Cistella implements OnInit {
   restar(id: number) {
     this.s.restarCaixa(id)
   }
+  resetCarrito(){
+    this.s.resetCarrito();
+  }
 }
