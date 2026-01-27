@@ -123,21 +123,21 @@ export class Productes {
         preu: 19.95,
         quantitat: 0,
         texquant: "-- Cantidad:",
-        img: "assets/Charizard.jpg"
+        imagen: "/assets/Charizard.jpg"
     },
       {
         id: 1,
         nombre: "Mewtwo",
         preu: 15.50,
         quantitat: 0,
-        img: "assets/Mewtwo.jpg"
+        imagen: "/assets/Mewtwo.jpg"
     },
       {
         id: 2,
         nombre: "Bulbasaur",
         preu: 30.00,
         quantitat: 0,
-        img: "assets/Bulbasaur.jpg"
+        imagen: "/assets/Bulbasaur.jpg"
     }]
   }
 
