@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {NgOptimizedImage} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {Capcelera} from '../capcelera/capcelera';
+import {Productes} from '../services/productes';
 
 @Component({
   selector: 'app-cateleg-cartes',
@@ -12,12 +13,11 @@ import {Capcelera} from '../capcelera/capcelera';
   styleUrl: './cateleg-cartes.css',
 })
 export class CatelegCartes {
-
-  constructor() {
+  id:number
+  constructor(private s: Productes) {
+    this.id = 0;
   }
-
-
-  protected afegirCarta(number: number, bulbasour: string, number2: number) {
-
+  public enviarCarritoCarta (id:any){
+    this.s.getProducteCarta(id)
   }
 }
