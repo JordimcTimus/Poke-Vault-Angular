@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {NgIf, NgOptimizedImage} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {Productes} from '../services/productes';
-import { AuthService } from '../clientes';
+import { AuthService } from '../services/clientes';
 
 
 @Component({
