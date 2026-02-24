@@ -4,7 +4,7 @@ import admin from 'firebase-admin';
 import { createRequire } from 'module';
 
 const require = createRequire(import.meta.url);
-const serviceAccount = require('./pokevault-c1eb0-firebase-adminsdk-fbsvc-da68346001.json');
+//const serviceAccount = require('./pokevault-c1eb0-firebase-adminsdk-fbsvc-da68346001.json');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
