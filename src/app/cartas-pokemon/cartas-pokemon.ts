@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {NgOptimizedImage} from '@angular/common';
 import {Capcelera} from '../capcelera/capcelera';
+import {Productes} from '../services/productes';
 
 @Component({
   selector: 'app-cartas-pokemon',
@@ -9,6 +10,10 @@ import {Capcelera} from '../capcelera/capcelera';
   templateUrl: './cartas-pokemon.html',
   styleUrl: './cartas-pokemon.css',
 })
-export class CartasPokemon {
+export class CartasPokemon{
+  cartesDesc: any[] = []
+  constructor(private s : Productes) {
+    this.cartesDesc = [{}]
+  }
 
 }

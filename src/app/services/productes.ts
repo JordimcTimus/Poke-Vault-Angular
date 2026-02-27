@@ -130,6 +130,7 @@ export class Productes {
         nombre: "Mewtwo",
         preu: 15.50,
         quantitat: 0,
+        texquant: "-- Cantidad:",
         imagen: "/assets/Mewtwo.jpg"
     },
       {
@@ -137,6 +138,7 @@ export class Productes {
         nombre: "Bulbasaur",
         preu: 30.00,
         quantitat: 0,
+        texquant: "-- Cantidad:",
         imagen: "/assets/Bulbasaur.jpg"
     }]
   }
@@ -151,7 +153,7 @@ export class Productes {
     console.log(this.llistaCartes[id].quantitat)
   }
   sumarCaixa(id: number) {
-    const item = this.llistaCaixes.find(c => c.id === id);
+    let item = this.llistaCaixes.find(c => c.id === id);
     if (item) {
       item.quantitat++;
     }
@@ -169,9 +171,24 @@ export class Productes {
   }
   // @ts-ignore
   totalPreu(): number {
-    let preuCaixes = this.llistaCaixes.forEach(item => item.preu * item.quantitat);
-    let preuCartes = this.llistaCartes.forEach(item => item.preu * item.quantitat);
-    // @ts-ignore
+    let preuCaixes = 0;
+    let preuCartes = 0;
+
+    this.llistaCaixes.forEach(item => {preuCaixes += item.preu * item.quantitat;});
+    this.llistaCartes.forEach(item => {preuCartes += item.preu * item.quantitat;});
     return preuCaixes + preuCartes;
+  }
+  sumarCarta(id: number) {
+    let item = this.llistaCartes.find(c => c.id === id);
+    if (item) {
+      item.quantitat++;
+    }
+  }
+
+  restarCarta(id: number) {
+    let item = this.llistaCartes.find(c => c.id === id);
+    if (item && item.quantitat > 0) {
+      item.quantitat--;
+    }
   }
 }

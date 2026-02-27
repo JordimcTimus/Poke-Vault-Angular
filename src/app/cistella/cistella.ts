@@ -19,8 +19,8 @@ export class Cistella implements OnInit {
   llistaCarritoCartes: any[] = []
 
   constructor(private s: Productes) {
-    this.llistaCarritoCaixes = [{}]
-    this.llistaCarritoCartes = [{}]
+    this.llistaCarritoCaixes = []
+    this.llistaCarritoCartes = []
   }
 
   ngOnInit(): void {
@@ -34,19 +34,27 @@ export class Cistella implements OnInit {
         this.llistaCarritoCartes.push(this.s.llistaCartes[i])
       }
     }
+    console.log(this.llistaCarritoCartes.length)
   }
 
-  sumar(id: number) {
+  sumarCaix(id: number) {
     this.s.sumarCaixa(id)
   }
-
-  restar(id: number) {
+  sumarCar(id:number) {
+    this.s.sumarCarta(id)
+  }
+  restarCaix(id: number) {
     this.s.restarCaixa(id)
   }
+  restarCar(id: number) {
+    this.s.restarCarta(id)
+  }
+
   resetCarrito(){
     this.s.resetCarrito();
   }
-  totalPreu() {
-    this.s.totalPreu()
+  // @ts-ignore
+  totalPreu(): string {
+    return this.s.totalPreu().toFixed(2)
   }
 }
