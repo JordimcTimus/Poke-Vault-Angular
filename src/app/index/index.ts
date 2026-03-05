@@ -40,4 +40,5 @@ export class Index implements OnInit {
   public enviarCarritoCaixe(id: any): void {
     this.s?.getProducteCaixe(id);
   }
+  //hola
 }
