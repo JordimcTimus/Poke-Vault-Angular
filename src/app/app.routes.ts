@@ -9,6 +9,7 @@ import {Index} from './index';
 import { LogIn  } from './log-in/log-in';
 import { SignUp } from './sign-up/sign-up';
 import {TerminosDeUso} from './terminos-de-uso/terminos-de-uso';
+import { Perfil } from './perfil/perfil';
 
 export const routes: Routes = [
   { path: 'caixesPokemon', component: CaixesPokemon},
@@ -20,6 +21,7 @@ export const routes: Routes = [
   { path: 'login', component: LogIn },
   { path: 'sign-up', component: SignUp },
   { path: 'terminosDeUso', component: TerminosDeUso },
+  { path: 'perfil/:id', component: Perfil },
   { path: '', redirectTo: '/index', pathMatch: 'full' },
 ];
 

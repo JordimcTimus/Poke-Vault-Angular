@@ -11,9 +11,16 @@
   <div class="header-right">
     <p class="usuario-logueado">{{ auth.loggedInUser?.nom }}</p>
     <p class="logout" *ngIf="auth.loggedInUser" (click)="logout()">Salir</p>
-    <a routerLink="/login">
-      <img ngSrc="assets/Login_Icon.jpg" height="50" width="50">
-    </a>
+    @if (auth.loggedInUser) {
+      <a>
+        <img ngSrc="assets/Login_Icon.jpg" height="50" width="50" (click)="obrirPerfil('NO FUNCIONAAAAAA')">
+      </a>
+    }
+    @else {
+      <a routerLink="/login">
+        <img ngSrc="assets/Login_Icon.jpg" height="50" width="50">
+      </a>
+    }
     <a routerLink="/cistella">
       <img ngSrc="assets/compra.webp" height="50" width="50">
     </a>

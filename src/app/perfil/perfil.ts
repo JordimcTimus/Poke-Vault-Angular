@@ -1,0 +1,34 @@
+import {Component, OnInit} from '@angular/core';
+import {UsuariModels} from '../models/usuari.models';
+import {Page} from '../services/page';
+import {ActivatedRoute} from '@angular/router';
+import {NgForm} from '@angular/forms';
+
+@Component({
+  selector: 'app-perfil',
+  imports: [],
+  templateUrl: './perfil.html',
+  styleUrl: './perfil.css',
+})
+export class Perfil implements OnInit{
+  usuari = new UsuariModels()
+  id:any;
+  isEditing:boolean = false;
+  newPassword:String = '';
+
+  constructor(private s:Page, private route:ActivatedRoute){ }
+
+  ngOnInit() {
+    this.id = this.route.snapshot.paramMap.get('id');
+    console.log(this.id)
+    if (this.id !== '') {
+      this.isEditing = true
+      this.s.getUsuari(this.id).subscribe((res:any)=>{
+        this.usuari = res;
+        this.usuari.password = this.usuari.password || '';
+        this.usuari.id = this.id;
+        console.log(this.usuari)
+      })
+    }
+  }
+}

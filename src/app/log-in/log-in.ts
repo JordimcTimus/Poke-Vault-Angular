@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import {RouterLink} from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../services/clientes';
+import * as brcypt from 'bcryptjs';
+import {UsuariModels} from '../models/usuari.models';
 
 @Component({
   selector: 'app-login',
@@ -30,6 +32,7 @@ export class LogIn {
       this.password = '';
     } else {
       alert('Usuari o contraseña incorrectos');
+
     }
   }
 }

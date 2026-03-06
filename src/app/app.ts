@@ -9,10 +9,12 @@ import {LogIn} from './log-in/log-in';
 import {SignUp} from './sign-up/sign-up';
 import {TerminosDeUso} from './terminos-de-uso/terminos-de-uso';
 import {Capcelera} from './capcelera/capcelera';
+import {HttpClientModule} from '@angular/common/http';
+
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CaixesPokemon, CartasPokemon, CatelegCartes, Cistella, Index, LogIn, SignUp, TerminosDeUso, Capcelera],
+  imports: [RouterOutlet, HttpClientModule ,CaixesPokemon, CartasPokemon, CatelegCartes, Cistella, Index, LogIn, SignUp, TerminosDeUso, Capcelera],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
