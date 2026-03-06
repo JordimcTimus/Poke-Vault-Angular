@@ -1,8 +1,8 @@
 <app-capcelera/>
 <h1> La meva Cistella </h1>
 <h2> Articles: </h2>
-@if (llistaCarritoCaixes.length > 0){
-  <table>
+<table>
+  @if (llistaCarritoCaixes.length > 0){
     @for (item of llistaCarritoCaixes; track item.id) {
       <tr>
         <td class="productes">
@@ -11,28 +11,33 @@
                 <p class="titulo">{{item.nombre}}</p>
                 <p class="texto">{{item.descripcio}}</p> <br>
                 <p class="texto">{{ item.preu | currency:'EUR':'symbol':'1.2-2' }} {{item.texquant}} {{item.quantitat}}</p>
-                <button (click)="sumar(item.id)">+</button>
-                <button (click)="restar(item.id)">-</button>
+                <button (click)="sumarCaix(item.id)">+</button>
+                <button (click)="restarCaix(item.id)">-</button>
               </div>
         </td>
       </tr>
     }
+  }
+  @if (llistaCarritoCartes.length > 0){
     @for (item of llistaCarritoCartes; track item.id) {
       <tr>
         <div class="productes">
           <img [src]="item.imagen">
           <div class="producto">
             <p class="titulo">{{item.nombre}}</p>
-            <p class="texto">{{item.preu}} {{item.texquant}} {{item.quantitat}}</p>
+            <p class="texto">{{ item.preu | currency:'EUR':'symbol':'1.2-2' }} {{item.texquant}} {{item.quantitat}}</p>
+            <button (click)="sumarCar(item.id)">+</button>
+            <button (click)="restarCar(item.id)">-</button>
           </div>
         </div>
       </tr>
+      }
     }
   </table>
-}
+
 
 <div class="continuar-pedido">
   <button class="btn-continuar" (click)="resetCarrito()">CONTINUAR COMANDA</button>
-  <span class="totalPrecio"> Total Precio: {{totalPreu()}} </span>
+  <span class="totalPrecio"> Total Precio: {{totalPreu()}} € </span>
 </div>
 

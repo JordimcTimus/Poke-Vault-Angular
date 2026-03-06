@@ -2,9 +2,10 @@ import express from 'express';
 import cors from 'cors';
 import admin from 'firebase-admin';
 import { createRequire } from 'module';
+import nodemailer from 'nodemailer';
 
 const require = createRequire(import.meta.url);
-//const serviceAccount = require('./pokevault-c1eb0-firebase-adminsdk-fbsvc-da68346001.json');
+const serviceAccount = require('./pokevault-c1eb0-firebase-adminsdk-fbsvc-28646ff553.json');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
@@ -53,3 +54,11 @@ app.put('/starwars/:id', async (req, res) => {
 });
 
 app.listen(PORT, () => console.log(`Servidor en puerto ${PORT}`));
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'kevintimus01@gmail.com',
+    pass: 'tu_contraseña_de_aplicacion' // Contraseña de aplicación de Gmail
+  }
+});
