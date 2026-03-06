@@ -15,6 +15,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class Index implements OnInit {
   id:number
+  imagenPokemon: string = '';
+  nombrePokemon: string = '';
 
   constructor(
     private s: Productes,
@@ -27,18 +29,7 @@ export class Index implements OnInit {
 
   }
 
-  obtenerPokemonAleatorio() {
-    const idAleatorio = Math.floor(Math.random() * 1010) + 1;
-
-    return this.http.get<any>(`https://pokeapi.co/api/v2/pokemon/${idAleatorio}`)
-      .subscribe(pokemon => {
-        console.log(pokemon.name);
-        console.log(pokemon.sprites.front_default);
-      });
-  }
-
   public enviarCarritoCaixe(id: any): void {
     this.s?.getProducteCaixe(id);
   }
-  //hola
 }

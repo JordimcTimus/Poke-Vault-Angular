@@ -36,9 +36,10 @@
     <img ngSrc="/assets/cards.webp" alt="Poké Ball" height="50" width="50"/>
     CARTES POKEMON
   </a>
+  <!-- POKEMON ALEATORIO - Click para recargar -->
   <a routerLink="" class="first-link">
-    <img ngSrc="/assets/accesorios.webp" alt="Poké Ball" height="50" width="50"/>
-    ACCESSORIS
+    <img [src]="imagenPokemon" height="50" width="50" alt="Pokémon">
+    {{ nombrePokemon }}
   </a>
   <a routerLink="" class="first-link">
     <img ngSrc="/assets/novedad.webp" alt="Poké Ball" height="50" width="50"/>
