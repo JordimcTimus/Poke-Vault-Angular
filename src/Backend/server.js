@@ -3,9 +3,19 @@ import cors from 'cors';
 import admin from 'firebase-admin';
 import { createRequire } from 'module';
 import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const require = createRequire(import.meta.url);
 const serviceAccount = require('./pokevault-c1eb0-firebase-adminsdk-fbsvc-28646ff553.json');
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
+  }
+});
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
@@ -17,6 +27,17 @@ const PORT = 3000;
 
 app.use(cors());
 app.use(express.json());
+
+app.get('/test-email', async (req, res) => {
+  await transporter.sendMail({
+    from: process.env.EMAIL_USER,
+    to: 'pokevault.noreply@gmail.com',
+    subject: 'Test Pokevault',
+    text: 'Si ves esto, nodemailer funciona!'
+  });
+  res.json({ message: 'Email enviat!' });
+});
+
 
 app.get('/ejemplo', (req, res) => {
   res.json({ nom: 'Kevin', cognom: 'Timus' });
@@ -54,11 +75,3 @@ app.put('/starwars/:id', async (req, res) => {
 });
 
 app.listen(PORT, () => console.log(`Servidor en puerto ${PORT}`));
-
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: 'kevintimus01@gmail.com',
-    pass: 'tu_contraseña_de_aplicacion' // Contraseña de aplicación de Gmail
-  }
-});
