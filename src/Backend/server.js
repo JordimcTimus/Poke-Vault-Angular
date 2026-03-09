@@ -5,6 +5,9 @@ import { createRequire } from 'module';
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 
+// cd .\src\Backend\
+//npx nodemon server.js
+
 dotenv.config();
 
 const require = createRequire(import.meta.url);
@@ -38,40 +41,10 @@ app.get('/test-email', async (req, res) => {
   res.json({ message: 'Email enviat!' });
 });
 
-
-app.get('/ejemplo', (req, res) => {
-  res.json({ nom: 'Kevin', cognom: 'Timus' });
-});
-
 app.get('/firebase-document', async (req, res) => {
   db.collection('Business').doc('Buisness 2').get().then(al2 => {
     res.json(al2);
   });
-});
-
-app.get('/starwars/jedis', async (req, res) => {
-  const snapshot = await db.collection('starwars_firebase').where('esJedi', '==', true).get();
-  const jedis = snapshot.docs.map(doc => ({
-    id: doc.id,
-    ...doc.data()
-  }));
-  res.json(jedis);
-});
-
-app.post('/starwars', async (req, res) => {
-  const { nom, esJedi } = req.body;
-  const docRef = await db.collection('starwars_firebase').add({
-    nom: nom,
-    esJedi: esJedi
-  });
-  res.json({ message: 'Personatge creat', id: docRef.id });
-});
-
-app.put('/starwars/:id', async (req, res) => {
-  const { id } = req.params;
-  const dades = req.body;
-  await db.collection('starwars_firebase').doc(id).set(dades, { merge: true });
-  res.json({ message: 'Personatge actualitzat', id: id });
 });
 
 app.listen(PORT, () => console.log(`Servidor en puerto ${PORT}`));
