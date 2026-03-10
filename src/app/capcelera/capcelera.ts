@@ -1,23 +1,50 @@
-import {Component, OnInit} from '@angular/core';
-import {NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
-import {RouterLink} from '@angular/router';
+import { Component, ChangeDetectorRef } from '@angular/core';
+import { NgIf, NgOptimizedImage } from '@angular/common';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../services/clientes';
+import { UsuariModels } from '../models/usuari.models';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import {UsuariModels} from '../models/usuari.models';
 import {Page} from '../services/page';
 
 @Component({
   selector: 'app-capcelera',
-  imports: [
-    NgOptimizedImage, RouterLink, NgIf, NgForOf
-  ],
+  imports: [NgOptimizedImage, RouterLink, NgIf],
   templateUrl: './capcelera.html',
   styleUrl: './capcelera.css',
 })
+export class Capcelera {
+  imagenPokemon: string = 'assets/Poké_Ball.png';
+  nombrePokemon: string = 'Pokémon';
+  usuari: UsuariModels = new UsuariModels();
 
+  protected readonly UsuariModels = UsuariModels;
 
-export class Capcelera{
-  usuaris = new UsuariModels();
+  constructor(
+    public auth: AuthService,
+    private http: HttpClient,
+    private r: Router,
+    private cdr: ChangeDetectorRef
+  ) {}
+
+  ngOnInit() {
+    this.obtenerPokemonAleatorio();
+  }
+
+  obtenerPokemonAleatorio() {
+    const idAleatorio = Math.floor(Math.random() * 1010) + 1;
+    this.http.get<any>(`https://pokeapi.co/api/v2/pokemon/${idAleatorio}`).subscribe({
+      next: (pokemon) => {
+        this.nombrePokemon = pokemon.name;
+        this.imagenPokemon = pokemon.sprites.front_default;
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.warn('No se pudo cargar el Pokémon:', err);
+      }
+    });
+  }
 
   constructor(public auth: AuthService,private r: Router,private s:Page) {}
   logout() {
@@ -31,7 +58,6 @@ export class Capcelera{
   obrirPerfil(id: any){
     console.log(id)
     this.r.navigate(['/perfil/', id]);
-
   }
 
 
