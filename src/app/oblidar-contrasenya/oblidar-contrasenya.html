@@ -1,0 +1,11 @@
+<div class="container">
+  <h2>Has oblidat la contrasenya?</h2>
+  <p *ngIf="message">{{ message }}</p>
+  <form (ngSubmit)="onSubmit()" *ngIf="!message">
+    <input type="email" [(ngModel)]="email" name="email" placeholder="El teu correu" required>
+    <button type="submit" [disabled]="loading">
+      {{ loading ? 'Enviant...' : 'Enviar enllaç' }}
+    </button>
+  </form>
+  <a routerLink="/login">← Tornar al login</a>
+</div>

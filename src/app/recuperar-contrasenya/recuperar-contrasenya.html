@@ -1,0 +1,10 @@
+<div class="container">
+  <h2>Nova contrasenya</h2>
+  <p *ngIf="success">{{ message }} Redirigint al login...</p>
+  <p *ngIf="error" style="color:red">{{ error }}</p>
+  <form (ngSubmit)="onSubmit()" *ngIf="!success">
+    <input type="password" [(ngModel)]="password" name="password" placeholder="Nova contrasenya" required>
+    <input type="password" [(ngModel)]="confirm" name="confirm" placeholder="Confirma la contrasenya" required>
+    <button type="submit">Canviar contrasenya</button>
+  </form>
+</div>
