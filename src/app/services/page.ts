@@ -13,8 +13,7 @@ export class Page {
   constructor(private http:HttpClient) {  }
 
   crearUsuari(usuari:UsuariModels){
-    return this.http.post(`${URL}/usuari.json`, usuari).pipe(
-
+    return this.http.post(`${URL}/usuaris.json`, usuari).pipe(
       map((res:any) =>{
         usuari.id = res.name;
         return usuari

@@ -22,6 +22,7 @@ export const routes: Routes = [
   { path: 'sign-up', component: SignUp },
   { path: 'terminosDeUso', component: TerminosDeUso },
   { path: 'perfil/:id', component: Perfil },
+  { path: 'sign-up/:id', component: SignUp },
   { path: '', redirectTo: '/index', pathMatch: 'full' },
 ];
 
