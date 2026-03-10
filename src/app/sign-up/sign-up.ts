@@ -18,27 +18,13 @@ import * as brcypt from 'bcryptjs';
   templateUrl: './sign-up.html',
   styleUrls: ['./sign-up.css'],
 })
-export class SignUp implements OnInit{
+export class SignUp {
   usuari:UsuariModels = new UsuariModels()
   id:any;
   isEditing:boolean = false;
   newPassword:String = '';
 
   constructor(private auth: AuthService, private s:Page, private route:ActivatedRoute) {}
-
-  ngOnInit() {
-    this.id = this.route.snapshot.paramMap.get('id');
-    console.log(this.id)
-    if (this.id !== '') {
-      this.isEditing = true
-      this.s.getUsuari(this.id).subscribe((res:any)=>{
-        this.usuari = res;
-        this.usuari.password = this.usuari.password || '';
-        this.usuari.id = this.id;
-        console.log(this.usuari)
-      })
-    }
-  }
 
   guardar(forma:NgForm){
     Swal.fire({
