@@ -4,8 +4,6 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../services/clientes';
 import { UsuariModels } from '../models/usuari.models';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
-import {UsuariModels} from '../models/usuari.models';
 import {Page} from '../services/page';
 
 @Component({
@@ -19,13 +17,12 @@ export class Capcelera {
   nombrePokemon: string = 'Pokémon';
   usuari: UsuariModels = new UsuariModels();
 
-  protected readonly UsuariModels = UsuariModels;
-
   constructor(
     public auth: AuthService,
     private http: HttpClient,
     private r: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private s:Page
   ) {}
 
   ngOnInit() {
@@ -45,8 +42,6 @@ export class Capcelera {
       }
     });
   }
-
-  constructor(public auth: AuthService,private r: Router,private s:Page) {}
   logout() {
     const confirmacio = confirm('¿Seguro que quieres salir de la cuenta?');
 
