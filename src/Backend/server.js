@@ -14,6 +14,8 @@ dotenv.config();
 
 const require = createRequire(import.meta.url);
 const serviceAccount = require('./pokevault-c1eb0-firebase-adminsdk-fbsvc-5050f49178.json');
+
+// Creamos una conexion entre GMAIL y el servidor para poder mandar emails desde el server
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -27,36 +29,41 @@ admin.initializeApp({
   databaseURL: "https://pokevault-c1eb0-default-rtdb.europe-west1.firebasedatabase.app"
 });
 
-const db = admin.firestore();
+const db = admin.firestore(); // Firestore (base de datos de documento)
+const rtdb = admin.database(); // Realtime Database (base de datos en tiempo real)
 const app = express();
 const PORT = 3000;
 
 app.use(cors());
 app.use(express.json());
 
-const rtdb = admin.database();
-
 // OLVIDAR CONTRASEÑA
 app.post('/forgot-password', async (req, res) => {
-  try {
-    const { email } = req.body;
 
-    const snapshot = await rtdb.ref('usuaris').orderByChild('email').equalTo(email).get();
-    if (!snapshot.exists()) return res.json({ message: 'Si existeix el compte, rebràs un correu.' });
+  //Recibe el email del cliente
+  const {email} = req.body;
 
-    const token = Math.random().toString(36).substring(2) + Date.now().toString(36);
-    const expiry = Date.now() + 60 * 60 * 1000;
+  //Busca dentro de la base de datos si existe el email
+  const snapshot = await rtdb.ref('usuaris').orderByChild('email').equalTo(email).get();
+  if (!snapshot.exists()) return res.json({message: 'Si existeix el compte, rebràs un correu.'});
 
-    const userId = Object.keys(snapshot.val())[0];
-    await rtdb.ref(`usuaris/${userId}`).update({ resetToken: token, resetTokenExpiry: expiry });
+  //Si existe crea un numero/token aleatorio que expira en 1 hora
+  const token = Math.random().toString(36).substring(2) + Date.now().toString(36);
+  const expiry = Date.now() + 60 * 60 * 1000;
 
-    const link = `http://localhost:4200/recuperar-contrasenya/${token}`;
+  //Guarda el token como una variable en la base de datos
+  const userId = Object.keys(snapshot.val())[0];
+  await rtdb.ref(`usuaris/${userId}`).update({resetToken: token, resetTokenExpiry: expiry});
 
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: email,
-      subject: 'Restableix la teva contrasenya - Pokevault',
-      html: `
+  //Crea un link especialmente para ese mismo token
+  const link = `http://localhost:4200/recuperar-contrasenya/${token}`;
+
+  //Envia un email para resetear la contraseña
+  await transporter.sendMail({
+    from: process.env.EMAIL_USER,
+    to: email,
+    subject: 'Restableix la teva contrasenya - Pokevault',
+    html: `
         <h2>Restabliment de contrasenya</h2>
         <p>Fes clic aquí per canviar la teva contrasenya:</p>
         <a href="${link}" style="background:#e63946;color:#fff;padding:10px 20px;border-radius:5px;text-decoration:none;">
@@ -64,45 +71,42 @@ app.post('/forgot-password', async (req, res) => {
         </a>
         <p>L'enllaç caduca en 1 hora.</p>
       `
-    });
+  });
 
-    res.json({ message: 'Si existeix el compte, rebràs un correu.' });
-
-  } catch (error) {
-    console.error('ERROR:', error);
-    res.status(500).json({ message: 'Error intern' });
-  }
+  res.json({message: 'Si existeix el compte, rebràs un correu.'});
 });
 
 // RESETEAR CONTRASEÑA
 app.post('/reset-password/:token', async (req, res) => {
-  try {
-    const { password } = req.body;
-    const { token } = req.params;
 
-    const snapshot = await rtdb.ref('usuaris').orderByChild('resetToken').equalTo(token).get();
-    if (!snapshot.exists()) return res.status(400).json({ message: 'Token invàlid o caducat' });
+  //Recibe el token y la contraseña
+  const {password} = req.body;
+  const {token} = req.params;
 
-    const userId = Object.keys(snapshot.val())[0];
-    const user = snapshot.val()[userId];
+  //Busca el token en la base de datos y también mira que no haya caducado
+  const snapshot = await rtdb.ref('usuaris').orderByChild('resetToken').equalTo(token).get();
+  if (!snapshot.exists()) return res.status(400).json({message: 'Token invàlid o caducat'});
 
-    if (user.resetTokenExpiry < Date.now()) return res.status(400).json({ message: 'Token caducat' });
+  const userId = Object.keys(snapshot.val())[0];
+  const user = snapshot.val()[userId];
 
-    const hashed = await bcrypt.hash(password, 10);
-    await rtdb.ref(`usuaris/${userId}`).update({
-      password: hashed,
-      resetToken: null,
-      resetTokenExpiry: null
-    });
+  if (user.resetTokenExpiry < Date.now()) return res.status(400).json({message: 'Token caducat'});
 
-    res.json({ message: 'Contrasenya actualitzada correctament' });
+  //Coge la contraseña y la encripta con bycript
+  const hashed = await bcrypt.hash(password, 10);
 
-  } catch (error) {
-    console.error('ERROR:', error);
-    res.status(500).json({ message: 'Error intern' });
-  }
+  //Guarda la nueva contraseña encriptada y elimina el token
+  await rtdb.ref(`usuaris/${userId}`).update({
+    password: hashed,
+    resetToken: null,
+    resetTokenExpiry: null
+  });
+
+  res.json({message: 'Contrasenya actualitzada correctament'});
+
 });
 
+/* TEST EMAIL
 app.get('/test-email', async (req, res) => {
   await transporter.sendMail({
     from: process.env.EMAIL_USER,
@@ -112,11 +116,6 @@ app.get('/test-email', async (req, res) => {
   });
   res.json({ message: 'Email enviat!' });
 });
-
-app.get('/firebase-document', async (req, res) => {
-  db.collection('Business').doc('Buisness 2').get().then(al2 => {
-    res.json(al2);
-  });
-});
+ */
 
 app.listen(PORT, () => console.log(`Servidor en puerto ${PORT}`));
