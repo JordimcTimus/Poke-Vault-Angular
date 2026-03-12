@@ -21,7 +21,7 @@ export const routes: Routes = [
   { path: 'cartas', component: CartasPokemon, canActivate:[guard]},
   { path: 'catalegCartas', component: CatelegCartes, canActivate:[guard]},
   { path: 'cistella', component: Cistella, canActivate:[guard]},
-  { path: 'index', component: Index, canActivate:[guard] },
+  { path: 'index', component: Index },
   { path: 'login', component: LogIn },
   { path: 'sign-up', component: SignUp },
   { path: 'terminosDeUso', component: TerminosDeUso, canActivate:[guard] },
@@ -29,7 +29,6 @@ export const routes: Routes = [
   { path: 'perfil2/:id', component: Perfil2, canActivate:[guard] },
   { path: 'oblidar-contrasenya', component: OblidarContrasenya },
   { path: 'recuperar-contrasenya/:token', component: RecuperarContrasenya },
-  { path: 'sign-up/:id', component: SignUp, canActivate:[guard] },
   { path: '', redirectTo: '/index', pathMatch: 'full' },
 
 ];

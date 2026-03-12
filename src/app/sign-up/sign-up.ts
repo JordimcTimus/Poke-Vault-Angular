@@ -84,14 +84,6 @@ export class SignUp implements OnInit{
           })
         }
       })
-    } else {
-      this.s.updateUsuari(this.usuari).subscribe(res =>{
-        Swal.fire({
-          icon: 'success',
-          title: 'Funciona',
-          text: "S'ha modificat l'usuari correctament"
-        })
-      })
     }
     this.isEditing = false
   }
