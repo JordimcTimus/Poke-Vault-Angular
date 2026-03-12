@@ -6,18 +6,9 @@
     <input type="text" name="cognom" [(ngModel)]="usuari.cognom" placeholder="Cognom" required><br>
     <input type="email" name="email" [(ngModel)]="usuari.email" placeholder="Email" required><br>
     <input type="tel" name="telefon" [(ngModel)]="usuari.telefon" placeholder="Telefon" required><br>
-    @if (!isEditing) {
-      <input type="password" name="newPassword" [(ngModel)]="newPassword" placeholder="Contrasenya"><br>
-      <button type="submit" [disabled]="forma.invalid"> Registrar-se </button> <br>
-      <a routerLink=""> Tornar a la pagina principal </a> <br>
-      <a routerLink="/login"> Tornra a la pagina Log In </a>
-    } @else {
-      <input type="password" name="newPassword" [value]="usuari.password" placeholder="Contrasenya" disabled><br>
-      <input type="password" name="password" [(ngModel)]="newPassword" placeholder="Nova contrasenya"><br>
-      <button type="submit" [disabled]="forma.invalid"> Modificar </button> <br>
-      <a routerLink="/perfil/{{ id }}"> Tornar al perfil </a> <br>
-    }
-
+    <input type="password" name="newPassword" [(ngModel)]="newPassword" placeholder="Contrasenya"><br>
+    <button type="submit" [disabled]="forma.invalid"> Registrar-se </button> <br>
+    <a routerLink="/login"> Tornra a la pagina Log In </a>
   </form>
 </div>
 </body>

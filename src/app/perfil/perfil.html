@@ -1,4 +1,72 @@
 <app-capcelera/>
 
-<p>perfil works!</p>
-<button (click)="configPerfil(id)">configuració</button>
+<div class="perfil-bg">
+  <div class="perfil-wrapper">
+
+    <!-- HEADER -->
+    <div class="perfil-header">
+      <div class="avatar-circle">🎴</div>
+      <div class="header-info">
+        <h1 class="perfil-title">El meu Perfil</h1>
+        <p class="perfil-sub">Modifica les teves dades personals</p>
+      </div>
+      <a routerLink="/perfil2/{{id}}" class="btn-veure">👤 Veure perfil</a>
+    </div>
+
+    <!-- FORM -->
+    <form (ngSubmit)="guardar(forma)" #forma="ngForm" class="perfil-card">
+
+      <div class="form-section-label">Dades personals</div>
+
+      <div class="form-row">
+        <div class="field">
+          <label>Nom</label>
+          <input type="text" name="nom" [(ngModel)]="usuari.nom"
+                 placeholder="El teu nom" required />
+        </div>
+        <div class="field">
+          <label>Cognom</label>
+          <input type="text" name="cognom" [(ngModel)]="usuari.cognom"
+                 placeholder="El teu cognom" required />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="field">
+          <label>Email</label>
+          <input type="email" name="email" [(ngModel)]="usuari.email"
+                 placeholder="correu@exemple.com" required />
+        </div>
+        <div class="field">
+          <label>Telèfon</label>
+          <input type="tel" name="telefon" [(ngModel)]="usuari.telefon"
+                 placeholder="+34 600 000 000" required />
+        </div>
+      </div>
+
+      <div class="divider">
+        <span>Canvi de contrasenya</span>
+      </div>
+
+      <div class="form-row">
+        <div class="field">
+          <label>Contrasenya actual</label>
+          <input type="password" name="newPassword" [(ngModel)]="usuari.password"
+                 placeholder="••••••••" disabled />
+        </div>
+        <div class="field">
+          <label>Nova contrasenya</label>
+          <input type="password" name="password" [(ngModel)]="newPassword"
+                 placeholder="••••••••" required />
+        </div>
+      </div>
+
+      <div class="form-footer">
+        <button type="submit" [disabled]="forma.invalid" class="btn-guardar">
+          Guardar canvis
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

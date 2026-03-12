@@ -52,7 +52,7 @@ export class Capcelera {
 
   obrirPerfil(id: any){
     console.log(id)
-    this.r.navigate(['/perfil/', id]);
+    this.r.navigate(['/perfil2/', id]);
   }
 
 

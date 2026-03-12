@@ -9,6 +9,7 @@ const URL = environment.urlServer;
   providedIn: 'root',
 })
 export class Page {
+  usuari: UsuariModels = new UsuariModels()
 
   constructor(private http:HttpClient) {  }
 
@@ -25,7 +26,7 @@ export class Page {
 
     let usuariTemp = {...usuari};
     delete usuariTemp.id;
-    return this.http.put(`${URL}/${usuari.id}.json`,usuariTemp);
+    return this.http.put(`${URL}/usuaris/${usuari.id}.json`,usuariTemp);
   }
 
   getUsuari(id:String){

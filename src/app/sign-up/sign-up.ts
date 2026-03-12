@@ -18,14 +18,24 @@ import * as brcypt from 'bcryptjs';
   templateUrl: './sign-up.html',
   styleUrls: ['./sign-up.css'],
 })
-export class SignUp {
+export class SignUp implements OnInit{
   usuari:UsuariModels = new UsuariModels()
   id:any;
-  isEditing:boolean = false;
   newPassword:String = '';
+  isEditing:boolean = false;
 
   constructor(private auth: AuthService, private s:Page, private route:ActivatedRoute) {}
 
+  ngOnInit() {
+    this.id = this.route.snapshot.paramMap.get('id');
+    if (this.id !== null) {
+      this.s.getUsuari(this.id).subscribe((res:any)=>{
+        this.usuari = res;
+        this.usuari.id = this.id;
+        console.log(this.usuari)
+      })
+    }
+  }
   guardar(forma:NgForm){
     Swal.fire({
       icon: 'info',
@@ -33,6 +43,7 @@ export class SignUp {
       text: "Guardar informació",
       allowOutsideClick:false
     });
+
     Swal.showLoading()
 
     if (!this.isEditing) {
@@ -44,18 +55,18 @@ export class SignUp {
         })
         return
       } else {
-
-        const saltRounds = 10
-        this.usuari.password = brcypt.hashSync(this.newPassword.trim(), saltRounds)
+          const saltRounds = 10
+          this.usuari.password = brcypt.hashSync(this.newPassword.trim(), saltRounds)
       }
+
     } else {
-      if (this.newPassword.trim()){
-        const saltRounds = 10
-        this.usuari.password = brcypt.hashSync(this.newPassword.trim(), saltRounds)
+        if (this.newPassword.trim()){
+          const saltRounds = 10
+          this.usuari.password = brcypt.hashSync(this.newPassword.trim(), saltRounds)
+        }
       }
-    }
 
-    if (!this.isEditing) {
+    if (this.isEditing) {
       this.s.verificarEmail(this.usuari.email).subscribe((existeix:boolean) =>{
         if (existeix) {
           Swal.fire({
@@ -84,6 +95,5 @@ export class SignUp {
     }
     this.isEditing = false
   }
-
   protected readonly UsuariModels = UsuariModels;
 }

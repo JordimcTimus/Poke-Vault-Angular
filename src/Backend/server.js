@@ -9,7 +9,6 @@ import { getDatabase } from 'firebase-admin/database';
 
 //cd .\src\Backend\
 //npx nodemon server.js
-
 dotenv.config();
 
 const require = createRequire(import.meta.url);
