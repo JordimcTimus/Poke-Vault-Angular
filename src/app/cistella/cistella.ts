@@ -1,6 +1,6 @@
 // @ts-ignore
 
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CurrencyPipe, NgOptimizedImage} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {Capcelera} from '../capcelera/capcelera';
@@ -9,7 +9,7 @@ import {Productes} from '../services/productes';
 @Component({
   selector: 'app-cistella',
   imports: [
-    NgOptimizedImage, RouterLink, Capcelera, CurrencyPipe
+    RouterLink, Capcelera, CurrencyPipe
   ],
   templateUrl: './cistella.html',
   styleUrl: './cistella.css',
@@ -44,7 +44,8 @@ export class Cistella implements OnInit {
     this.s.sumarCarta(id)
   }
   restarCaix(id: number) {
-    this.s.restarCaixa(id)
+    if (this.s.restarCaixa(id)){
+    }
   }
   restarCar(id: number) {
     this.s.restarCarta(id)
@@ -53,7 +54,6 @@ export class Cistella implements OnInit {
   resetCarrito(){
     this.s.resetCarrito();
   }
-  // @ts-ignore
   totalPreu(): string {
     return this.s.totalPreu().toFixed(2)
   }

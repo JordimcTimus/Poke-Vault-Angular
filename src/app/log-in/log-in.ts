@@ -17,26 +17,9 @@ import {NgFor} from '@angular/common';
 })
 export class LogIn {
   usuari = new UsuariModels()
-  showPassword: boolean = false;
-  //email: string = '';
-  //password: string = '';
 
   constructor(private auth: AuthService) {}
 
-  //logearse 1
-  //protected login() {
-
-    //const ok = this.auth.login(this.email, this.password);
-
-    //if (ok) {
-      //alert('USUARIO CONECTADO');
-      //this.email = '';
-      //this.password = '';
-    //} else {
-      //alert('Usuari o contraseña incorrectos');
-
-    //}
-  //}
   login(forma:NgForm){
     this.usuari = forma.value
     this.auth.login(this.usuari)

@@ -3,11 +3,7 @@ import {UsuariModels} from '../models/usuari.models';
 import {Page} from '../services/page';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {FormsModule, NgForm, ReactiveFormsModule} from '@angular/forms';
-import Swal from 'sweetalert2'
 import {Capcelera} from '../capcelera/capcelera';
-import * as brcypt from 'bcryptjs';
-import {AuthService} from '../services/clientes';
-import {HttpClient} from '@angular/common/http';
 
 
 @Component({

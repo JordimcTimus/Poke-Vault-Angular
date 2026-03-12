@@ -46,45 +46,37 @@ export class SignUp implements OnInit{
 
     Swal.showLoading()
 
-    if (!this.isEditing) {
-      if (!this.newPassword.trim()) {
+    if (!this.newPassword.trim()) {
+      Swal.fire({
+        icon: 'error',
+        title: 'ERROR',
+        text: 'La contrasenya és obligatoria'
+      })
+      return
+    } else {
+      const saltRounds = 10
+      this.usuari.password = brcypt.hashSync(this.newPassword.trim(), saltRounds)
+    }
+    if (this.newPassword.trim()){
+      const saltRounds = 10
+      this.usuari.password = brcypt.hashSync(this.newPassword.trim(), saltRounds)
+    }
+    this.s.verificarEmail(this.usuari.email).subscribe((existeix:boolean) => {
+      if (existeix) {
         Swal.fire({
           icon: 'error',
           title: 'ERROR',
-          text: 'La contrasenya és obligatoria'
+          text: "El correu ja existeix"
         })
-        return
-      } else {
-          const saltRounds = 10
-          this.usuari.password = brcypt.hashSync(this.newPassword.trim(), saltRounds)
       }
-
-    } else {
-        if (this.newPassword.trim()){
-          const saltRounds = 10
-          this.usuari.password = brcypt.hashSync(this.newPassword.trim(), saltRounds)
-        }
-      }
-
-    if (this.isEditing) {
-      this.s.verificarEmail(this.usuari.email).subscribe((existeix:boolean) =>{
-        if (existeix) {
-          Swal.fire({
-            icon: 'error',
-            title: 'ERROR',
-            text: "El correu ja existeix"
-          })
-        } else {
-          this.s.crearUsuari(this.usuari).subscribe(res =>{
-            Swal.fire({
-              icon: 'success',
-              title: 'Funciona',
-              text: "L'usuari s'ha creat correctament"
-            })
-          })
-        }
+      this.s.crearUsuari(this.usuari).subscribe(res => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Funciona',
+          text: "L'usuari s'ha creat correctament"
+        })
       })
-    }
+    })
     this.isEditing = false
   }
   protected readonly UsuariModels = UsuariModels;
