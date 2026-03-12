@@ -42,6 +42,7 @@ export class Capcelera {
       }
     });
   }
+
   logout() {
     const confirmacio = confirm('¿Seguro que quieres salir de la cuenta?');
 
