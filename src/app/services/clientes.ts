@@ -5,6 +5,7 @@ import * as bcrypt from 'bcryptjs';
 import {UsuariModels} from '../models/usuari.models';
 import Swal from 'sweetalert2';
 import {Router} from '@angular/router';
+import {Page} from './page';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +38,11 @@ export class AuthService {
           if (isMatch) {
             console.log("login exitós")
             const usuariTemp = {...user}
-            localStorage.setItem('currentUser', JSON.stringify(usuariTemp))
+            if (user.Administrador) {
+              localStorage.setItem('adminUser', JSON.stringify(usuariTemp))
+            } else {
+              localStorage.setItem('currentUser', JSON.stringify(usuariTemp))
+            }
             this.r.navigate(['/index'])
           } else {
             console.log("Contrasenya incorrecte")
@@ -59,7 +64,12 @@ export class AuthService {
   // =========================
   isLoged():boolean {
     const user = localStorage.getItem('currentUser')
-    return user !== null
+    const admin = localStorage.getItem('adminUser')
+    if (user) {
+      return user !== null
+    } else {
+      return admin !== null
+    }
   }
 
   // ======================
@@ -68,10 +78,15 @@ export class AuthService {
   // @ts-ignore
   getCurrentUser():UsuariModels | null {
     const user = localStorage.getItem('currentUser')
-    if (!user) {
+    const admin = localStorage.getItem('adminUser')
+    if (!user && !admin) {
       return null
     }
-    return JSON.parse(user)
+    if (user) {
+      return JSON.parse(user)
+    } else {
+      return JSON.parse(<string>admin)
+    }
   }
 
   // ======================
@@ -80,6 +95,8 @@ export class AuthService {
   logout() {
   this._loggedInUser = null;
   localStorage.removeItem('currentUser');
+  localStorage.removeItem('adminUser');
   this.r.navigate(['/index'])
   }
+
 }

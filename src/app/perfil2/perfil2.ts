@@ -44,6 +44,8 @@ export class Perfil2 implements OnInit{
         console.log("_______________________________Usuari________________________________");
         console.log(this.usuari);
         console.log("Nom:", this.usuari.nom, "Cognom:", this.usuari.cognom, "Email:", this.usuari.email, "Telefon:", this.usuari.telefon);
+        console.log("Current User:")
+        console.log(localStorage.getItem('currentUser'))
         this.cdr.detectChanges();
       });
     }

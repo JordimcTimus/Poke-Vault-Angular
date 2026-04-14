@@ -39,6 +39,10 @@ export class Page {
     )
   }
 
+  public getAdmin(id:String) {
+    return this.http.get(`${URL}/usuaris/${id}/Administrador.json`)
+  }
+
   // @ts-ignore
   private arreglo(usuarisObj:any):UsuariModels[]{
     const usuaris:UsuariModels[]=[];

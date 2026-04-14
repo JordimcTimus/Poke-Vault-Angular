@@ -12,7 +12,7 @@ import {TerminosDeUso} from './terminos-de-uso/terminos-de-uso';
 import { Perfil } from './perfil/perfil';
 import { OblidarContrasenya } from './oblidar-contrasenya/oblidar-contrasenya';
 import { RecuperarContrasenya } from './recuperar-contrasenya/recuperar-contrasenya';
-import {guard} from './guard/guard';
+import {adminGuard, guard} from './guard/guard';
 import {Perfil2} from './perfil2/perfil2';
 
 export const routes: Routes = [
@@ -24,7 +24,7 @@ export const routes: Routes = [
   { path: 'index', component: Index },
   { path: 'login', component: LogIn },
   { path: 'sign-up', component: SignUp },
-  { path: 'terminosDeUso', component: TerminosDeUso, canActivate:[guard] },
+  { path: 'terminosDeUso', component: TerminosDeUso, canActivate:[adminGuard] },
   { path: 'perfil/:id', component: Perfil, canActivate:[guard] },
   { path: 'perfil2/:id', component: Perfil2, canActivate:[guard] },
   { path: 'oblidar-contrasenya', component: OblidarContrasenya },

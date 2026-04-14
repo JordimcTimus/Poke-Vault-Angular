@@ -5,4 +5,5 @@ export class UsuariModels{
   nom?: String;
   password?: String;
   telefon?: String;
+  Administrador?: Boolean;
 }
