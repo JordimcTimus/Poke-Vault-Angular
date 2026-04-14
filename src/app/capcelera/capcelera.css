@@ -80,3 +80,6 @@ nav a {
   cursor:pointer;
 }
 
+.PrimeraLetra::first-letter {
+  font-family: Impact, serif;
+}

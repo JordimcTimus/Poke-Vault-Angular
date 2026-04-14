@@ -14,7 +14,7 @@
     @if (auth.isLoged()) {
       <a>
         @if (true){
-          <img ngSrc="assets/Login_Icon.jpg" height="50" width="50" (click)="obrirPerfil(auth.getCurrentUser()?.id)">
+          <img   ngSrc="assets/Login_Icon.jpg" height="50" width="50" (click)="obrirPerfil(auth.getCurrentUser()?.id)">
         }
       </a>
         }
@@ -40,7 +40,7 @@
   </a>
   <!--POKEMON ALEATORIO-->
   <a routerLink="" class="first-link">
-    <img [src]="imagenPokemon" height="50" width="50" alt="Pokémon">
+    <img [src]="imagenPokemon" height="50" width="50" alt="Pokémon" class="PrimeraLetra">
     {{ nombrePokemon }}
   </a>
   <a routerLink="" class="first-link">

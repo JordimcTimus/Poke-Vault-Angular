@@ -165,10 +165,12 @@ export class Productes {
       item.quantitat--;
     }
   }
+
   resetCarrito() {
     this.llistaCaixes.forEach(item => item.quantitat = 0);
     this.llistaCartes.forEach(item => item.quantitat = 0);
   }
+
   // @ts-ignore
   totalPreu(): number {
     let preuCaixes = 0;
@@ -178,6 +180,7 @@ export class Productes {
     this.llistaCartes.forEach(item => {preuCartes += item.preu * item.quantitat;});
     return preuCaixes + preuCartes;
   }
+
   sumarCarta(id: number) {
     let item = this.llistaCartes.find(c => c.id === id);
     if (item) {

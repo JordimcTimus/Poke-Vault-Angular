@@ -32,15 +32,13 @@ export class Capcelera {
   obtenerPokemonAleatorio() {
     const idAleatorio = Math.floor(Math.random() * 1010) + 1;
     this.http.get<any>(`https://pokeapi.co/api/v2/pokemon/${idAleatorio}`).subscribe({
-      next: (pokemon) => {
-        this.nombrePokemon = pokemon.name;
-        this.imagenPokemon = pokemon.sprites.front_default;
-        this.cdr.detectChanges();
-      },
-      error: (err) => {
-        console.warn('No se pudo cargar el Pokémon:', err);
-      }
-    });
+        next: (pokemon) => {
+          // Primera letra en mayúscula
+          this.nombrePokemon = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
+          this.imagenPokemon = pokemon.sprites.front_default;
+          this.cdr.detectChanges();
+        }
+      });
   }
 
   logout() {
@@ -55,7 +53,6 @@ export class Capcelera {
     console.log(id)
     this.r.navigate(['/perfil2/', id]);
   }
-
 
   protected readonly UsuariModels = UsuariModels;
 }
