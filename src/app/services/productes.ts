@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {ChangeDetectorRef, Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
@@ -142,7 +142,7 @@ export class Productes {
         imagen: "/assets/Bulbasaur.jpg"
     }]
   }
-
+  // @ts-ignore
   public getProducteCaixe(id: number){
     this.llistaCaixes[id].quantitat = 1
     console.log(this.llistaCaixes[id].quantitat)
@@ -159,10 +159,13 @@ export class Productes {
     }
   }
 
-  restarCaixa(id: number) {
+  restarCaixa(id: number):boolean|any {
     let item = this.llistaCaixes.find(c => c.id === id);
     if (item && item.quantitat > 0) {
       item.quantitat--;
+      if (item.quantitat <= 0) {
+        return true
+      }
     }
   }
 
