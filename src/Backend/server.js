@@ -32,9 +32,13 @@ const db = admin.firestore(); // Firestore (base de datos de documento)
 const rtdb = admin.database(); // Realtime Database (base de datos en tiempo real)
 const app = express();
 const PORT = 3000;
+const { DataTypes } = require('sequelize');
 
 app.use(cors());
 app.use(express.json());
+
+const {crearConfigBaseDades} = require("./db.config.js")
+const dbSQL = crearConfigBaseDades()
 
 // OLVIDAR CONTRASEÑA
 app.post('/forgot-password', async (req, res) => {
@@ -116,6 +120,39 @@ app.get('/test-email', async (req, res) => {
   res.json({ message: 'Email enviat!' });
 });
  */
+
+// ================================================================ //
+// =========================SEQUELIZE============================== //
+// ================================================================ //
+
+const Producte = require("../app/SequelizeAuto/models/producte.js")(dbSQL, DataTypes);
+const LiniesComanda = require("../app/SequelizeAuto/models/linies_comanda.js")(dbSQL, DataTypes);
+const Comanda = require("../app/SequelizeAuto/models/comandes.js")(dbSQL, DataTypes);
+
+// GETTERS
+
+app.get('/GetProductes', async (req, res) => {
+  const producte = await Producte.findAll({
+  });
+  res.json(producte)
+})
+
+app.get('/GetComanda', async (req, res) => {
+  const comanda = await Comanda.findAll({
+  });
+  res.json(comanda)
+})
+
+app.get('/GetLiniesComanda', async (req, res) => {
+  const liniesComanda = await LiniesComanda.findAll({
+  });
+  res.json(liniesComanda)
+})
+
+// SETTERS
+app.post('/SetLinesComanda', async (req, res) => {
+  const productosVendidos = await LiniesComanda.findAll({})
+})
 
 
 
