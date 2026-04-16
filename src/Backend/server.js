@@ -148,10 +148,12 @@ app.get('/GetLiniesComanda', async (req, res) => {
   });
   res.json(liniesComanda)
 })
-
 // SETTERS
-app.post('/SetLinesComanda', async (req, res) => {
-  const productosVendidos = await LiniesComanda.findAll({})
+
+app.put('/SetLinesComanda/:codiFactura', async (req, res) => {
+  const productosVendidos = await LiniesComanda.findAll({
+    where: { idlinia: req.params.codiFactura }
+  })
 })
 
 
