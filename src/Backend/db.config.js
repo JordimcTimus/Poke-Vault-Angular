@@ -18,7 +18,3 @@ const crearConfigBaseDades = () => {
 //Exportem la funció
 module.exports = {crearConfigBaseDades}
 
-ng g class models/Producte --type=model
-ng g class models/Comanda --type=model
-ng g class models/Linies_comada --type=model
-
