@@ -186,4 +186,22 @@ app.get('/GetVendesPerMes', async (req, res) => {
   res.json(resultats);
 });
 
+// Devuelve el total vendido con oferta y sin
+// GET /GetVendesOfertaVsSenseOferta
+app.get('/GetVendesOfertaVsSenseOferta', async (req, res) => {
+  const resultats = await dbSQL.query(`
+    SELECT
+      DATE_FORMAT(c.data, '%Y-%m')                                    AS mes,
+      SUM(CASE WHEN p.ofertaActiva = 1 THEN l.quantitat ELSE 0 END)  AS vendes_oferta,
+      SUM(CASE WHEN p.ofertaActiva = 0 THEN l.quantitat ELSE 0 END)  AS vendes_sense_oferta
+    FROM linies_comanda l
+    JOIN comandes c ON l.idcomandes = c.idcomandes
+    JOIN producte p ON l.idproducte = p.idproducte
+    GROUP BY mes
+    ORDER BY mes ASC
+  `, { type: dbSQL.QueryTypes.SELECT });
+
+  res.json(resultats);
+});
+
 app.listen(PORT, () => console.log(`Servidor en puerto ${PORT}`));

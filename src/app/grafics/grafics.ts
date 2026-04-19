@@ -11,8 +11,12 @@ const COLORS_LINIES = [
   { border: 'rgb(255, 205, 86)', background: 'rgba(255, 205, 86, 0.2)' },
 ];
 
-interface Producte     { idproducte: number; nom: string; tipus: string; }
-interface VendaMensual { mes: string; total_venut: number; }
+const COLOR_OFERTA       = { border: 'rgb(255, 99, 132)',  background: 'rgba(255, 99, 132, 0.2)'  };
+const COLOR_SENSE_OFERTA = { border: 'rgb(75, 192, 192)',  background: 'rgba(75, 192, 192, 0.2)'  };
+
+interface Producte       { idproducte: number; nom: string; tipus: string; }
+interface VendaMensual   { mes: string; total_venut: number; }
+interface VendaOfertaMes { mes: string; vendes_oferta: number; vendes_sense_oferta: number; }
 
 @Component({
   selector: 'app-grafics',
@@ -24,13 +28,19 @@ export class Grafics implements OnInit {
 
   // @ts-ignore
   grafic: Chart;
+  // @ts-ignore
+  graficOferta: Chart;
 
   productes: Producte[] = [];
   productesSeleccionats: (number | null)[] = [null, null, null];
   colorsPunts = COLORS_LINIES.map(c => c.border);
 
   ngOnInit(): void {
-    this.carregarProductes();
+    // setTimeout(0) permet que Angular acabi de renderitzar els canvas abans de dibuixar
+    setTimeout(() => {
+      this.carregarProductes();
+      this.carregarGraficOferta();
+    }, 0);
   }
 
   async carregarProductes(): Promise<void> {
@@ -46,6 +56,8 @@ export class Grafics implements OnInit {
   onSelectorCanviat(): void {
     this.carregarGrafic();
   }
+
+  // ── Gràfic 1: vendes per producte i mes ──────────────────────────────────
 
   async carregarGrafic(): Promise<void> {
     const liniesGrafic = [];
@@ -68,15 +80,15 @@ export class Grafics implements OnInit {
       const nomCurt     = nomProducte.length > 30 ? nomProducte.substring(0, 30) + '…' : nomProducte;
 
       liniesGrafic.push({
-        label:           nomCurt,
-        data:            unitatsPerMes,
-        fill:            false,
-        borderColor:     COLORS_LINIES[i].border,
-        backgroundColor: COLORS_LINIES[i].background,
-        tension:         0.3,
-        pointRadius:     5,
+        label:            nomCurt,
+        data:             unitatsPerMes,
+        fill:             false,
+        borderColor:      COLORS_LINIES[i].border,
+        backgroundColor:  COLORS_LINIES[i].background,
+        tension:          0.3,
+        pointRadius:      5,
         pointHoverRadius: 8,
-        pointHitRadius:  20,
+        pointHitRadius:   20,
       });
     }
 
@@ -92,6 +104,78 @@ export class Grafics implements OnInit {
         plugins: {
           legend: { position: 'top' },
           title:  { display: true, text: 'Unitats venudes per mes' },
+          tooltip: {
+            callbacks: {
+              title: (items: TooltipItem<'line'>[]) => NOMS_MESOS[items[0].dataIndex],
+              label: (item:  TooltipItem<'line'>) => ` ${item.dataset.label}: ${item.parsed.y} unitats`,
+            }
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            title: { display: true, text: 'Unitats venudes' },
+            ticks: { stepSize: 1, callback: (valor: any) => `${valor} u.` }
+          },
+          x: { title: { display: true, text: 'Mes' } }
+        }
+      }
+    });
+  }
+
+  // ── Gràfic 2: productes en oferta vs sense oferta per mes ─────────────────
+
+  async carregarGraficOferta(): Promise<void> {
+    const resposta = await fetch('http://localhost:3000/GetVendesOfertaVsSenseOferta');
+    const vendesPerMes: VendaOfertaMes[] = await resposta.json();
+
+    const vendesOferta      = Array(12).fill(0);
+    const vendesSenseOferta = Array(12).fill(0);
+
+    vendesPerMes.forEach(v => {
+      const indexMes = parseInt(v.mes.split('-')[1], 10) - 1;
+      vendesOferta[indexMes]      = Number(v.vendes_oferta);
+      vendesSenseOferta[indexMes] = Number(v.vendes_sense_oferta);
+    });
+
+    if (this.graficOferta) this.graficOferta.destroy();
+
+    this.graficOferta = new Chart('grafic-oferta', {
+      type: 'line' as ChartType,
+      data: {
+        labels: NOMS_MESOS,
+        datasets: [
+          {
+            label:            'En oferta',
+            data:             vendesOferta,
+            fill:             false,
+            borderColor:      COLOR_OFERTA.border,
+            backgroundColor:  COLOR_OFERTA.background,
+            tension:          0.3,
+            pointRadius:      5,
+            pointHoverRadius: 8,
+            pointHitRadius:   20,
+          },
+          {
+            label:            'Sense oferta',
+            data:             vendesSenseOferta,
+            fill:             false,
+            borderColor:      COLOR_SENSE_OFERTA.border,
+            backgroundColor:  COLOR_SENSE_OFERTA.background,
+            tension:          0.3,
+            pointRadius:      5,
+            pointHoverRadius: 8,
+            pointHitRadius:   20,
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { position: 'top' },
+          title:  { display: true, text: 'Vendes mensuals: en oferta vs sense oferta' },
           tooltip: {
             callbacks: {
               title: (items: TooltipItem<'line'>[]) => NOMS_MESOS[items[0].dataIndex],

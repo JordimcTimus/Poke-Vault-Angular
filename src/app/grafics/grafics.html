@@ -1,22 +1,29 @@
 <app-capcelera/>
 
-<div class="contenidor-grafic">
+<div class="contenidor-pagina">
 
-  <div class="contenidor-selectors">
-    @for (i of [0, 1, 2]; track i) {
-      <div class="selector-producte">
-        <span class="punt-color" [style.background]="colorsPunts[i]"></span>
-        <label>Producte {{ i + 1 }}:</label>
-        <select [(ngModel)]="productesSeleccionats[i]" (ngModelChange)="onSelectorCanviat()">
-          <option [value]="null">— Cap —</option>
-          @for (p of productes; track p.idproducte) {
-            <option [value]="p.idproducte">{{ p.nom }} ({{ p.tipus }})</option>
-          }
-        </select>
-      </div>
-    }
+  <!-- Gràfic 1: vendes per producte i mes -->
+  <div class="contenidor-grafic">
+    <div class="contenidor-selectors">
+      @for (i of [0, 1, 2]; track i) {
+        <div class="selector-producte">
+          <span class="punt-color" [style.background]="colorsPunts[i]"></span>
+          <label>Producte {{ i + 1 }}:</label>
+          <select [(ngModel)]="productesSeleccionats[i]" (ngModelChange)="onSelectorCanviat()">
+            <option [value]="null">— Cap —</option>
+            @for (p of productes; track p.idproducte) {
+              <option [value]="p.idproducte">{{ p.nom }} ({{ p.tipus }})</option>
+            }
+          </select>
+        </div>
+      }
+    </div>
+    <canvas id="grafic-vendes"></canvas>
   </div>
 
-  <canvas id="grafic-vendes"></canvas>
+  <!-- Gràfic 2: oferta vs sense oferta -->
+  <div class="contenidor-grafic">
+    <canvas id="grafic-oferta"></canvas>
+  </div>
 
 </div>

@@ -1,25 +1,40 @@
+/* Divideix la pantalla en dues meitats horitzontals */
+.contenidor-pagina {
+  display: flex;
+  flex-direction: row;
+  height: calc(100vh - 175px);
+  padding: 10px 20px;
+  gap: 20px;
+  box-sizing: border-box;
+}
+
+/* Cada gràfic ocupa la meitat de la pantalla */
 .contenidor-grafic {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 175px); /* 100vh menos la altura del header+nav */
-  padding: 10px 20px;
-  box-sizing: border-box;
+  flex: 1;
+  min-width: 0; /* imprescindible perquè flex no desbordí */
 }
 
 .contenidor-selectors {
   display: flex;
-  gap: 20px;
+  gap: 8px;
   align-items: center;
   justify-content: center;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
+  flex-wrap: wrap; /* si no hi cap, baixa a la següent línia */
 }
 
 .selector-producte {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 5px;
   color: white;
-  font-size: 0.95em;
+  font-size: 0.85em;
+}
+
+.selector-producte label {
+  white-space: nowrap;
 }
 
 .selector-producte select {
@@ -27,20 +42,23 @@
   color: white;
   border: 1px solid #555;
   border-radius: 4px;
-  padding: 5px 10px;
-  font-size: 1em;
+  padding: 4px 6px;
+  font-size: 0.85em;
   cursor: pointer;
+  max-width: 160px;        /* limita l'amplada del select */
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .punt-color {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   display: inline-block;
   flex-shrink: 0;
 }
 
-canvas#grafic-vendes {
+canvas {
   flex: 1;
   min-height: 0; /* imprescindible perquè flex respecti el límit */
   width: 100% !important;
