@@ -1,7 +1,6 @@
 {
   "name": "pokevault-angular",
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "dev": "ng serve",
     "server": "nodemon --exec \"node src/Backend/server.js\"",

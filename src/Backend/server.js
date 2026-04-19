@@ -12,7 +12,13 @@ import { getDatabase } from 'firebase-admin/database';
 dotenv.config();
 
 const require = createRequire(import.meta.url);
+
 const serviceAccount = require('./pokevault-c1eb0-firebase-adminsdk-fbsvc-5050f49178.json');
+const { DataTypes } = require('sequelize');
+const { crearConfigBaseDades } = require('./db.config.js');
+const Producte      = require('./models/producte.js');
+const LiniesComanda = require('./models/linies_comanda.js');
+const Comanda       = require('./models/comandes.js');
 
 // Creamos una conexion entre GMAIL y el servidor para poder mandar emails desde el server
 const transporter = nodemailer.createTransport({
@@ -28,134 +34,156 @@ admin.initializeApp({
   databaseURL: "https://pokevault-c1eb0-default-rtdb.europe-west1.firebasedatabase.app"
 });
 
-const db = admin.firestore(); // Firestore (base de datos de documento)
-const rtdb = admin.database(); // Realtime Database (base de datos en tiempo real)
-const app = express();
+const db   = admin.firestore();
+const rtdb = admin.database();
+const app  = express();
 const PORT = 3000;
-const { DataTypes } = require('sequelize');
 
 app.use(cors());
 app.use(express.json());
 
-const {crearConfigBaseDades} = require("./db.config.js")
-const dbSQL = crearConfigBaseDades()
+const dbSQL        = crearConfigBaseDades();
+const producte     = Producte(dbSQL, DataTypes);
+const liniesComanda = LiniesComanda(dbSQL, DataTypes);
+const comanda      = Comanda(dbSQL, DataTypes);
 
-// OLVIDAR CONTRASEÑA
+// ================================================================ //
+// ======================FORGOT PASSWORD=========================== //
+// ================================================================ //
+
 app.post('/forgot-password', async (req, res) => {
+  const { email } = req.body;
 
-  //Recibe el email del cliente
-  const {email} = req.body;
-
-  //Busca dentro de la base de datos si existe el email
   const snapshot = await rtdb.ref('usuaris').orderByChild('email').equalTo(email).get();
-  if (!snapshot.exists()) return res.json({message: 'Si existeix el compte, rebràs un correu.'});
+  if (!snapshot.exists()) return res.json({ message: 'Si existeix el compte, rebràs un correu.' });
 
-  //Si existe crea un numero/token aleatorio que expira en 1 hora
-  const token = Math.random().toString(36).substring(2) + Date.now().toString(36);
+  const token  = Math.random().toString(36).substring(2) + Date.now().toString(36);
   const expiry = Date.now() + 60 * 60 * 1000;
 
-  //Guarda el token como una variable en la base de datos
   const userId = Object.keys(snapshot.val())[0];
-  await rtdb.ref(`usuaris/${userId}`).update({resetToken: token, resetTokenExpiry: expiry});
+  await rtdb.ref(`usuaris/${userId}`).update({ resetToken: token, resetTokenExpiry: expiry });
 
-  //Crea un link especialmente para ese mismo token
   const link = `http://localhost:4200/recuperar-contrasenya/${token}`;
 
-  //Envia un email para resetear la contraseña
   await transporter.sendMail({
     from: process.env.EMAIL_USER,
     to: email,
     subject: 'Restableix la teva contrasenya - Pokevault',
     html: `
-        <h2>Restabliment de contrasenya</h2>
-        <p>Fes clic aquí per canviar la teva contrasenya:</p>
-        <a href="${link}" style="background:#e63946;color:#fff;padding:10px 20px;border-radius:5px;text-decoration:none;">
-          Restablir contrasenya
-        </a>
-        <p>L'enllaç caduca en 1 hora.</p>
-      `
+      <h2>Restabliment de contrasenya</h2>
+      <p>Fes clic aquí per canviar la teva contrasenya:</p>
+      <a href="${link}" style="background:#e63946;color:#fff;padding:10px 20px;border-radius:5px;text-decoration:none;">
+        Restablir contrasenya
+      </a>
+      <p>L'enllaç caduca en 1 hora.</p>
+    `
   });
 
-  res.json({message: 'Si existeix el compte, rebràs un correu.'});
+  res.json({ message: 'Si existeix el compte, rebràs un correu.' });
 });
 
-// RESETEAR CONTRASEÑA
+// ================================================================ //
+// =====================RESET PASSWORD============================= //
+// ================================================================ //
+
 app.post('/reset-password/:token', async (req, res) => {
+  const { password } = req.body;
+  const { token }    = req.params;
 
-  //Recibe el token y la contraseña
-  const {password} = req.body;
-  const {token} = req.params;
-
-  //Busca el token en la base de datos y también mira que no haya caducado
   const snapshot = await rtdb.ref('usuaris').orderByChild('resetToken').equalTo(token).get();
-  if (!snapshot.exists()) return res.status(400).json({message: 'Token invàlid o caducat'});
+  if (!snapshot.exists()) return res.status(400).json({ message: 'Token invàlid o caducat' });
 
   const userId = Object.keys(snapshot.val())[0];
-  const user = snapshot.val()[userId];
+  const user   = snapshot.val()[userId];
 
-  if (user.resetTokenExpiry < Date.now()) return res.status(400).json({message: 'Token caducat'});
+  if (user.resetTokenExpiry < Date.now()) return res.status(400).json({ message: 'Token caducat' });
 
-  //Coge la contraseña y la encripta con bycript
   const hashed = await bcrypt.hash(password, 10);
 
-  //Guarda la nueva contraseña encriptada y elimina el token
   await rtdb.ref(`usuaris/${userId}`).update({
-    password: hashed,
-    resetToken: null,
-    resetTokenExpiry: null
+    password:           hashed,
+    resetToken:         null,
+    resetTokenExpiry:   null
   });
 
-  res.json({message: 'Contrasenya actualitzada correctament'});
-
+  res.json({ message: 'Contrasenya actualitzada correctament' });
 });
 
-/* TEST EMAIL
-app.get('/test-email', async (req, res) => {
-  await transporter.sendMail({
-    from: process.env.EMAIL_USER,
-    to: 'pokevault.noreply@gmail.com',
-    subject: 'Test Pokevault',
-    text: 'Si ves esto, nodemailer funciona'
-  });
-  res.json({ message: 'Email enviat!' });
-});
- */
-
 // ================================================================ //
-// =========================SEQUELIZE============================== //
+// =========================GETTERS================================ //
 // ================================================================ //
-
-const Producte = require("../app/SequelizeAuto/models/producte.js")(dbSQL, DataTypes);
-const LiniesComanda = require("../app/SequelizeAuto/models/linies_comanda.js")(dbSQL, DataTypes);
-const Comanda = require("../app/SequelizeAuto/models/comandes.js")(dbSQL, DataTypes);
-
-// GETTERS
 
 app.get('/GetProductes', async (req, res) => {
-  const producte = await Producte.findAll({
-  });
-  res.json(producte)
-})
+  const productes = await producte.findAll();
+  res.json(productes);
+});
 
 app.get('/GetComanda', async (req, res) => {
-  const comanda = await Comanda.findAll({
-  });
-  res.json(comanda)
-})
+  const comandes = await comanda.findAll();
+  res.json(comandes);
+});
 
 app.get('/GetLiniesComanda', async (req, res) => {
-  const liniesComanda = await LiniesComanda.findAll({
-  });
-  res.json(liniesComanda)
-})
-// SETTERS
+  const linies = await liniesComanda.findAll();
+  res.json(linies);
+});
+
+// ================================================================ //
+// =========================SETTERS================================ //
+// ================================================================ //
 
 app.put('/SetLinesComanda/:codiFactura', async (req, res) => {
-  const productosVendidos = await LiniesComanda.findAll({
+  const productosVendidos = await liniesComanda.findAll({
     where: { idlinia: req.params.codiFactura }
-  })
-})
+  });
+  res.json(productosVendidos);
+});
 
 
+// ================================================================ //
+// =========================GRAFICOS=============================== //
+// ================================================================ //
+
+// Devuelve la cantidad vendida de un producto por mes
+// Exemple: GET /GetVendesPerMes/1
+app.get('/GetVendesPerMes/:idproducte', async (req, res) => {
+  const { idproducte } = req.params;
+
+  const resultats = await dbSQL.query(`
+    SELECT DATE_FORMAT(c.data, '%Y-%m') AS mes, SUM(l.quantitat) AS total_venut
+    FROM linies_comanda l
+    JOIN comandes c ON l.idcomandes = c.idcomandes
+    WHERE l.idproducte = :idproducte
+    GROUP BY mes
+    ORDER BY mes ASC
+  `, {
+    replacements: { idproducte },
+    type: dbSQL.QueryTypes.SELECT
+  });
+
+  res.json(resultats);
+});
+
+// Devuelve todos los productos vendidos por mes
+// GET /GetVendesPerMes
+app.get('/GetVendesPerMes', async (req, res) => {
+  const resultats = await dbSQL.query(`
+    SELECT
+      p.idproducte,
+      p.nom,
+      p.tipus,
+      DATE_FORMAT(c.data, '%Y-%m') AS mes,
+      SUM(l.quantitat)             AS total_venut
+    FROM linies_comanda l
+    JOIN comandes c  ON l.idcomandes = c.idcomandes
+    JOIN producte p  ON l.idproducte = p.idproducte
+    GROUP BY p.idproducte, mes
+    ORDER BY mes ASC, p.nom ASC
+  `, {
+    type: dbSQL.QueryTypes.SELECT
+  });
+
+  res.json(resultats);
+});
 
 app.listen(PORT, () => console.log(`Servidor en puerto ${PORT}`));

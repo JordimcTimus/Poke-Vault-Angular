@@ -1,0 +1,48 @@
+.contenidor-grafic {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 175px); /* 100vh menos la altura del header+nav */
+  padding: 10px 20px;
+  box-sizing: border-box;
+}
+
+.contenidor-selectors {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.selector-producte {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: white;
+  font-size: 0.95em;
+}
+
+.selector-producte select {
+  background-color: #222;
+  color: white;
+  border: 1px solid #555;
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.punt-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+canvas#grafic-vendes {
+  flex: 1;
+  min-height: 0; /* imprescindible perquè flex respecti el límit */
+  width: 100% !important;
+  height: 100% !important;
+}

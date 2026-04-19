@@ -1,2 +1,22 @@
 <app-capcelera/>
-<canvas id="chart">{{ chart }}</canvas>
+
+<div class="contenidor-grafic">
+
+  <div class="contenidor-selectors">
+    @for (i of [0, 1, 2]; track i) {
+      <div class="selector-producte">
+        <span class="punt-color" [style.background]="colorsPunts[i]"></span>
+        <label>Producte {{ i + 1 }}:</label>
+        <select [(ngModel)]="productesSeleccionats[i]" (ngModelChange)="onSelectorCanviat()">
+          <option [value]="null">— Cap —</option>
+          @for (p of productes; track p.idproducte) {
+            <option [value]="p.idproducte">{{ p.nom }} ({{ p.tipus }})</option>
+          }
+        </select>
+      </div>
+    }
+  </div>
+
+  <canvas id="grafic-vendes"></canvas>
+
+</div>
