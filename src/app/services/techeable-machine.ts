@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 
 const MODEL_URL           = 'https://teachablemachine.withgoogle.com/models/BFjvqTZXP/';
 const GESTOS_NO_AMIGABLES = ['DedoMedio', 'Nazi'];
-const CONFIANCA_MINIMA    = 0.85;
+const CONFIANCA_MINIMA    = 1;
 const GESTOS_PER_TANCAR   = 4;
 
 @Injectable({ providedIn: 'root' })
