@@ -7,6 +7,10 @@ h2 {
   display: flex;
 }
 
+table {
+  margin-bottom: 100px;
+}
+
 .productes {
   display: flex;
   height: 200px;
@@ -36,7 +40,7 @@ h2 {
 }
 
 .final {
-  margin-bottom: 5em;
+  padding-bottom: 80px
 }
 
 .continuar-pedido {
@@ -53,6 +57,7 @@ h2 {
   display: flex;
   width: 100%;
   margin: 0 auto;
+  padding-top: 80px;
 }
 
 .btn-continuar {

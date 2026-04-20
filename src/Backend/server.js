@@ -43,9 +43,6 @@ app.use(cors());
 app.use(express.json());
 
 const dbSQL        = crearConfigBaseDades();
-const producte     = Producte(dbSQL, DataTypes);
-const liniesComanda = LiniesComanda(dbSQL, DataTypes);
-const comanda      = Comanda(dbSQL, DataTypes);
 
 // ================================================================ //
 // ======================FORGOT PASSWORD=========================== //
@@ -110,9 +107,15 @@ app.post('/reset-password/:token', async (req, res) => {
 });
 
 // ================================================================ //
-// =========================GETTERS================================ //
+// ========================= ORM   ================================ //
 // ================================================================ //
 
+const { initModels } = require("./models/init-models");
+const { comandes, linies_comanda, producte } = initModels(db);
+
+// ================================================================ //
+// =========================GETTERS================================ //
+// ================================================================ //
 app.get('/GetProductes', async (req, res) => {
   const productes = await producte.findAll();
   res.json(productes);
@@ -138,6 +141,10 @@ app.put('/SetLinesComanda/:codiFactura', async (req, res) => {
   });
   res.json(productosVendidos);
 });
+
+app.put('/añadirProducto', async (req, res) => {
+
+})
 
 
 // ================================================================ //
