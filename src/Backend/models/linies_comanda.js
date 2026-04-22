@@ -32,6 +32,11 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DOUBLE,
       allowNull: false,
       defaultValue: 0
+    },
+    en_oferta: {
+      type: DataTypes.TINYINT(1),
+      allowNull: false,
+      defaultValue: 0
     }
   }, {
     sequelize,

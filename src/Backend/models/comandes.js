@@ -16,6 +16,11 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.ENUM('pendent', 'enviada', 'completada', 'cancel·lada'),
       allowNull: false,
       defaultValue: 'pendent'
+    },
+    idusuari: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 1
     }
   }, {
     sequelize,

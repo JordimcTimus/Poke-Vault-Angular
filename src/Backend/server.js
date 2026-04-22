@@ -111,7 +111,7 @@ app.post('/reset-password/:token', async (req, res) => {
 // ================================================================ //
 
 const { initModels } = require("./models/init-models");
-const { comandes, linies_comanda, producte } = initModels(db);
+const { comandes, linies_comanda, producte } = initModels(dbSQL);
 
 // ================================================================ //
 // =========================GETTERS================================ //
@@ -122,7 +122,7 @@ app.get('/GetProductes', async (req, res) => {
 });
 
 app.get('/GetComanda', async (req, res) => {
-  const comandes = await comanda.findAll();
+  const comandes = await comandes.findAll();
   res.json(comandes);
 });
 
