@@ -1,14 +1,21 @@
-import {ChangeDetectorRef, Injectable} from '@angular/core';
+import {ChangeDetectorRef, Injectable, OnInit} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {UsuariModels} from '../models/usuari.models';
+import {Page} from './page';
+import {ActivatedRoute} from '@angular/router';
+import {AuthService} from './clientes';
 
 @Injectable({
   providedIn: 'root',
 })
-export class Productes {
+export class Productes{
   public llistaCaixes: any[] = [];
   public llistaCartes: any[] = [];
+  usuari:UsuariModels = new UsuariModels()
+  userId:any;
 
-
-  constructor() {
+  url = 'http://localhost:3000';
+  constructor(private http: HttpClient, private s: Page, private route:ActivatedRoute, public auth: AuthService,) {
     this.llistaCaixes = [{
       id: 0,
       nombre: "Booster Bundle Prismatic Evolutions - Ingles",
@@ -142,10 +149,10 @@ export class Productes {
         imagen: "/assets/Bulbasaur.jpg"
     }]
   }
-  // @ts-ignore
+
   public getProducteCaixe(id: number){
-    this.llistaCaixes[id].quantitat = 1
-    console.log(this.llistaCaixes[id].quantitat)
+    this.auth.getCurrentUser()?.carrito?.push(this.llistaCaixes[id].quantitat = 1)
+    console.log(this.auth.getCurrentUser()?.carrito?.push(this.llistaCaixes[id].quantitat))
   }
 
   public getProducteCarta(id: number){

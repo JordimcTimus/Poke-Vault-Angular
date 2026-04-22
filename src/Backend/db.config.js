@@ -1,8 +1,7 @@
 //Exportem la llibreria sequelizer
-const Sequelize = require('sequelize');
-
+import Sequelize from "sequelize";
 //Retorna connexió a la base de dades:
-const crearConfigBaseDades = () => {
+export const crearConfigBaseDades = () => {
   return new Sequelize("pokevault", "root", "kevin", {
     host: "localhost",
     dialect: "mysql",
@@ -14,6 +13,3 @@ const crearConfigBaseDades = () => {
     }
   });
 }
-
-//Exportem la funció
-module.exports = {crearConfigBaseDades}

@@ -5,6 +5,7 @@ import {CurrencyPipe, NgOptimizedImage} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {Capcelera} from '../capcelera/capcelera';
 import {Productes} from '../services/productes';
+import {AuthService} from '../services/clientes';
 
 @Component({
   selector: 'app-cistella',
@@ -18,16 +19,15 @@ export class Cistella implements OnInit {
   llistaCarritoCaixes: any[] = []
   llistaCarritoCartes: any[] = []
 
-  constructor(private s: Productes) {
+  constructor(private s: Productes, public auth: AuthService) {
     this.llistaCarritoCaixes = []
     this.llistaCarritoCartes = []
   }
 
   ngOnInit(): void {
-    for (let i = 0; i < this.s.llistaCaixes.length; i++) {
-      if (this.s.llistaCaixes[i].quantitat > 0) {
-        this.llistaCarritoCaixes.push(this.s.llistaCaixes[i])
-      }
+    // @ts-ignore
+    for (let i = 0; i < this.auth.getCurrentUser()?.carrito?.length; i++) {
+      this.llistaCarritoCaixes.push(this.auth.getCurrentUser()?.carrito)
     }
     for (let i = 0; i < this.s.llistaCartes.length; i++) {
       if (this.s.llistaCartes[i].quantitat > 0) {
