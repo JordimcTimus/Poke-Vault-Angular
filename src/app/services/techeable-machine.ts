@@ -63,10 +63,6 @@ export class VigilantIAService {
   private async detectar(): Promise<void> {
     const prediccions = await this.model.predict(this.webcam.canvas);
 
-    // Log general per veure què detecta en cada frame
-    const millor = prediccions.reduce((a: any, b: any) => a.probability > b.probability ? a : b);
-    console.log(`Detectant: ${millor.className} (${(millor.probability * 100).toFixed(1)}%)`);
-
     const gestoDetectat = prediccions.find((p: any) =>
       GESTOS_NO_AMIGABLES.includes(p.className) && p.probability >= CONFIANCA_MINIMA
     );
