@@ -211,4 +211,6 @@ app.get('/GetVendesOfertaVsSenseOferta', async (req, res) => {
   res.json(resultats);
 });
 
+
+
 app.listen(PORT, () => console.log(`Servidor en puerto ${PORT}`));

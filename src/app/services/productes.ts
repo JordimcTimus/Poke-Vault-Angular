@@ -151,8 +151,8 @@ export class Productes{
   }
 
   public getProducteCaixe(id: number){
-    this.auth.getCurrentUser()?.carrito?.push(this.llistaCaixes[id].quantitat = 1)
-    console.log((this.http.get(this.url + "/GetProductes")))
+    this.llistaCaixes[id].quantitat = 1
+    console.log(this.llistaCaixes[id].quantitat)
   }
 
   public getProducteCarta(id: number){
