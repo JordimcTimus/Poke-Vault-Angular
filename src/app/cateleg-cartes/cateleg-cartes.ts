@@ -18,6 +18,6 @@ export class CatelegCartes {
     this.id = 0;
   }
   public enviarCarritoCarta (id:any){
-    this.s.getProducteCarta(id)
+    this.s.getProducteCaixe(id)
   }
 }

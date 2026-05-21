@@ -6,6 +6,8 @@ import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 import bcrypt from 'bcryptjs';
 import { getDatabase } from 'firebase-admin/database';
+import {Model as liniesComanda} from "sequelize";
+import "./Cron/VaciarCarrito.js"
 
 //cd .\src\Backend\
 //npx nodemon server.js
@@ -19,6 +21,8 @@ const { crearConfigBaseDades } = require('./db.config.js');
 const Producte      = require('./models/producte.js');
 const LiniesComanda = require('./models/linies_comanda.js');
 const Comanda       = require('./models/comandes.js');
+const Carrito       = require('./models/carritos.js');
+const Linea_carrito = require('./models/linea_carritos');
 
 // Creamos una conexion entre GMAIL y el servidor para poder mandar emails desde el server
 const transporter = nodemailer.createTransport({
@@ -111,7 +115,7 @@ app.post('/reset-password/:token', async (req, res) => {
 // ================================================================ //
 
 const { initModels } = require("./models/init-models");
-const { comandes, linies_comanda, producte } = initModels(dbSQL);
+const { comandes, linies_comanda, producte, carritos, linea_carritos} = initModels(dbSQL);
 
 // ================================================================ //
 // =========================GETTERS================================ //
@@ -121,15 +125,48 @@ app.get('/GetProductes', async (req, res) => {
   res.json(productes);
 });
 
+app.get('/GetProductes/Preu/:id', async (req, res) => {
+  const prodPreu = await producte.findByPk(req.params.id, {
+    attributes: ['preu']
+  })
+  if (!prodPreu) {
+    return res.status(404).json({
+      mensaje: "Producto no encontrado"
+    })
+  }
+  res.json(prodPreu.preu)
+})
+
 app.get('/GetComanda', async (req, res) => {
   const comandes = await comandes.findAll();
   res.json(comandes);
 });
 
 app.get('/GetLiniesComanda', async (req, res) => {
-  const linies = await liniesComanda.findAll();
+  const linies = await linies_comanda.findAll();
   res.json(linies);
 });
+
+app.get('/GetProdCarrito/:idcarrito/:idproducte', async (req, res) => {
+  const linia = await linea_carritos.findOne({
+    where: {
+      idcarrito: req.params.idcarrito,
+      idproducte: req.params.idproducte
+    }
+  });
+  res.json(linia);
+});
+
+
+
+app.get('/get-carritos/:userId', async (req, res) => {
+  const carrito = await carritos.findOne({
+    where: {
+      idusuari: req.params.userId
+    }
+  })
+  res.json(carrito);
+})
 
 // ================================================================ //
 // =========================SETTERS================================ //
@@ -141,6 +178,32 @@ app.put('/SetLinesComanda/:codiFactura', async (req, res) => {
   });
   res.json(productosVendidos);
 });
+app.post('/CrearCarrito', async (req,res) => {
+  try {
+    const carrito = await carritos.create(req.body)
+    res.status(201).json(carrito)
+  } catch (error) {
+    console.error("Error en el post /CrearCarrito")
+    console.error(error)
+    res.status(500).json({
+      mensaje: "Error creant al carrito",
+      error: error.message
+    })
+  }
+})
+app.post('/AfegirLineaCarrito', async (req,res) => {
+  try {
+    const prod = await linea_carritos.create(req.body)
+    res.status(201).json(prod)
+  } catch (error) {
+    console.error("Error en el post /AfegirLineaCarrito")
+    console.error(error)
+    res.status(500).json({
+      mensaje: "Error afegint al carrito",
+      error: error.message
+    })
+  }
+})
 
 app.put('/añadirProducto', async (req, res) => {
 

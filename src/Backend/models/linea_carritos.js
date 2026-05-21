@@ -1,18 +1,18 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('linies_comanda', {
-    idlinia: {
+  return sequelize.define('linea_carritos', {
+    idlinea: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    idcomandes: {
+    idcarrito: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'comandes',
-        key: 'idcomandes'
+        model: 'carritos',
+        key: 'idcarrito'
       }
     },
     idproducte: {
@@ -25,22 +25,24 @@ module.exports = function(sequelize, DataTypes) {
     },
     quantitat: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 1
+      allowNull: false
     },
-    preu_unitari: {
+    preu: {
       type: DataTypes.DOUBLE,
-      allowNull: false,
-      defaultValue: 0
+      allowNull: false
     },
-    en_oferta: {
-      type: DataTypes.BOOLEAN,
+    data_creacio: {
+      type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: 0
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
+    },
+    data_limit: {
+      type: DataTypes.DATE,
+      allowNull: false
     }
   }, {
     sequelize,
-    tableName: 'linies_comanda',
+    tableName: 'linea_carritos',
     timestamps: false,
     indexes: [
       {
@@ -48,18 +50,18 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "idlinia" },
+          { name: "idlinea" },
         ]
       },
       {
-        name: "fk_linia_comanda",
+        name: "FK_liena_carrito",
         using: "BTREE",
         fields: [
-          { name: "idcomandes" },
+          { name: "idcarrito" },
         ]
       },
       {
-        name: "fk_linia_producte",
+        name: "FK_liena_carrito_producrte",
         using: "BTREE",
         fields: [
           { name: "idproducte" },

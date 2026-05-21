@@ -4,18 +4,19 @@ import {UsuariModels} from '../models/usuari.models';
 import {Page} from './page';
 import {ActivatedRoute} from '@angular/router';
 import {AuthService} from './clientes';
+import {DoubleDataType} from 'sequelize';
 
 @Injectable({
   providedIn: 'root',
 })
-export class Productes{
+export class Productes {
   public llistaCaixes: any[] = [];
   public llistaCartes: any[] = [];
-  usuari:UsuariModels = new UsuariModels()
-  userId:any;
+  usuari: UsuariModels = new UsuariModels()
+  userId: any;
+  prodPreu: number = 0;
 
-  url = 'http://localhost:3000';
-  constructor(private http: HttpClient, private s: Page, private route:ActivatedRoute, public auth: AuthService,) {
+  constructor(private http: HttpClient, private s: Page, private route: ActivatedRoute, public auth: AuthService) {
     this.llistaCaixes = [{
       id: 0,
       nombre: "Booster Bundle Prismatic Evolutions - Ingles",
@@ -122,15 +123,15 @@ export class Productes{
         quantitat: 0,
         imagen: "/assets/Caja%20Mascara%20Crepuscular.png"
       }
-      ]
+    ]
     // @ts-ignore
     this.llistaCartes = [{
-        id: 0,
-        nombre: "Charizard",
-        preu: 19.95,
-        quantitat: 0,
-        texquant: "-- Cantidad:",
-        imagen: "/assets/Charizard.jpg"
+      id: 0,
+      nombre: "Charizard",
+      preu: 19.95,
+      quantitat: 0,
+      texquant: "-- Cantidad:",
+      imagen: "/assets/Charizard.jpg"
     },
       {
         id: 1,
@@ -139,7 +140,7 @@ export class Productes{
         quantitat: 0,
         texquant: "-- Cantidad:",
         imagen: "/assets/Mewtwo.jpg"
-    },
+      },
       {
         id: 2,
         nombre: "Bulbasaur",
@@ -147,18 +148,84 @@ export class Productes{
         quantitat: 0,
         texquant: "-- Cantidad:",
         imagen: "/assets/Bulbasaur.jpg"
-    }]
+      }]
+    this.userId = this.auth.getCurrentUser()
+    console.log(this.userId)
   }
 
-  public getProducteCaixe(id: number){
-    this.llistaCaixes[id].quantitat = 1
-    console.log(this.llistaCaixes[id].quantitat)
+  public getProducteCaixe(id: number) {
+    let user = this.userId.id
+    console.log(user)
+    console.log(this.userId.id)
+    this.comprobarCarritos(user).subscribe({
+      next: (res) => {
+        this.getPreu(id).subscribe((data) => {
+          let preu = data
+          console.log("Preu:" + preu)
+
+          const dataLimit = new Date();
+          dataLimit.setDate(dataLimit.getDate() + 7)
+          if (res == null) {
+            console.log("Carrito no existe")
+            console.log("Creando carrito")
+            this.http.post('http://localhost:3000/CrearCarrito', {idusuari: user}).subscribe({
+              next: (nuevoCarrito: any) => {
+                console.log("s'ha creat el carrito", nuevoCarrito)
+                this.http.post('http://localhost:3000/AfegirLineaCarrito', {
+                  idcarrito: nuevoCarrito.idcarrito,
+                  idproducte: id,
+                  quantitat: 1,
+                  preu: preu,
+                  data_limit: dataLimit
+                }).subscribe({
+                  next: (res) => console.log("Se ha añadido el producto", res),
+                  error: (err) => console.log("Error al añadir el producto", err)
+                })
+              },
+              error: (err) => {
+                console.log("No s'ha creat el carrito", err)
+              }
+            })
+          } else {
+            console.log("Carrito existe")
+            this.comprobarProducteCarrito(res.idcarrito, id).subscribe(linia => {
+              if (linia == null) {
+                console.log("Afegint producte");
+                this.http.post('http://localhost:3000/AfegirLineaCarrito', {
+                  idcarrito: res.idcarrito,
+                  idproducte: id,
+                  quantitat: 1,
+                  preu: preu,
+                  data_limit: dataLimit
+                }).subscribe({
+                  next: (res) => console.log("Se ha añadido el producto", res),
+                  error: (err) => console.log("Error al añadir el producto", err)
+                })
+              } else {
+                console.log("Producte repetit");
+              }
+            });
+          }
+        })
+      },
+      error: (err) => {
+        console.log("Carrito no existeix", err)
+      }
+    })
   }
 
-  public getProducteCarta(id: number){
-    this.llistaCartes[id].quantitat = 1
-    console.log(this.llistaCartes[id].quantitat)
+  public comprobarCarritos(user: any) {
+    return this.http.get<any>('http://localhost:3000/get-carritos/' + user);
   }
+
+  public comprobarProducteCarrito(user: any, id: number) {
+    return this.http.get<any>(`http://localhost:3000/GetProdCarrito/${user}/${id}`);
+  }
+
+  public getPreu(id: number) {
+    return this.http.get<any>('http://localhost:3000/GetProductes/Preu/' + id);
+  }
+
   sumarCaixa(id: number) {
     let item = this.llistaCaixes.find(c => c.id === id);
     if (item) {
@@ -166,7 +233,7 @@ export class Productes{
     }
   }
 
-  restarCaixa(id: number):boolean|any {
+  restarCaixa(id: number): boolean | any {
     let item = this.llistaCaixes.find(c => c.id === id);
     if (item && item.quantitat > 0) {
       item.quantitat--;
@@ -186,8 +253,12 @@ export class Productes{
     let preuCaixes = 0;
     let preuCartes = 0;
 
-    this.llistaCaixes.forEach(item => {preuCaixes += item.preu * item.quantitat;});
-    this.llistaCartes.forEach(item => {preuCartes += item.preu * item.quantitat;});
+    this.llistaCaixes.forEach(item => {
+      preuCaixes += item.preu * item.quantitat;
+    });
+    this.llistaCartes.forEach(item => {
+      preuCartes += item.preu * item.quantitat;
+    });
     return preuCaixes + preuCartes;
   }
 
