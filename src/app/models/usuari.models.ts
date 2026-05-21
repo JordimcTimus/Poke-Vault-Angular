@@ -5,5 +5,6 @@ export class UsuariModels{
   nom?: String;
   password?: String;
   telefon?: String;
+  carrito?: Array<any>;
   Administrador?: Boolean;
 }

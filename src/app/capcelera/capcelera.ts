@@ -22,7 +22,6 @@ export class Capcelera {
     private http: HttpClient,
     private r: Router,
     private cdr: ChangeDetectorRef,
-    private s:Page
   ) {}
 
   ngOnInit() {
