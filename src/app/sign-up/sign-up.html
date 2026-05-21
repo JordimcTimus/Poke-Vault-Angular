@@ -7,6 +7,14 @@
     <input type="email" name="email" [(ngModel)]="usuari.email" placeholder="Email" required><br>
     <input type="tel" name="telefon" [(ngModel)]="usuari.telefon" placeholder="Telefon" required><br>
     <input type="password" name="newPassword" [(ngModel)]="newPassword" placeholder="Contrasenya"><br>
+
+    <ngx-recaptcha2
+      [siteKey]="'6Ld7E_AsAAAAAEHkjZhDWvWrisxncKGRlkFdbcq5'"
+      (success)="onCaptchaResolt($event)">
+    </ngx-recaptcha2>
+
+    <br>
+
     <button type="submit" [disabled]="forma.invalid"> Registrar-se </button> <br>
     <a routerLink="/login"> Tornra a la pagina Log In </a>
   </form>

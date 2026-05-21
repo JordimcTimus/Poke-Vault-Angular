@@ -10,12 +10,12 @@ module.exports = function(sequelize, DataTypes) {
     data: {
       type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: DataTypes.NOW
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
     },
     estat: {
-      type: DataTypes.ENUM('pendent', 'enviada', 'completada', 'cancel·lada'),
+      type: DataTypes.ENUM('pendent','enviada','completada','cancel·lada'),
       allowNull: false,
-      defaultValue: 'pendent'
+      defaultValue: "pendent"
     },
     idusuari: {
       type: DataTypes.INTEGER,
@@ -31,8 +31,10 @@ module.exports = function(sequelize, DataTypes) {
         name: "PRIMARY",
         unique: true,
         using: "BTREE",
-        fields: [{ name: "idcomandes" }]
-      }
+        fields: [
+          { name: "idcomandes" },
+        ]
+      },
     ]
   });
 };

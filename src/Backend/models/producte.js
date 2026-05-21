@@ -16,9 +16,9 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     tipus: {
-      type: DataTypes.ENUM('carta', 'caixa'),
+      type: DataTypes.ENUM('carta','caixa'),
       allowNull: false,
-      defaultValue: 'caixa'
+      defaultValue: "caixa"
     },
     ruta_imatge: {
       type: DataTypes.STRING(255),
@@ -30,7 +30,7 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: 0
     },
     ofertaActiva: {
-      type: DataTypes.TINYINT(1),
+      type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: 0
     },
@@ -48,8 +48,10 @@ module.exports = function(sequelize, DataTypes) {
         name: "PRIMARY",
         unique: true,
         using: "BTREE",
-        fields: [{ name: "idproducte" }]
-      }
+        fields: [
+          { name: "idproducte" },
+        ]
+      },
     ]
   });
 };

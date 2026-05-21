@@ -115,3 +115,9 @@ textarea:focus,
 button:focus {
   outline: none;
 }
+
+ngx-recaptcha2 {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}

@@ -15,6 +15,7 @@ import { RecuperarContrasenya } from './recuperar-contrasenya/recuperar-contrase
 import {adminGuard, guard} from './guard/guard';
 import {Perfil2} from './perfil2/perfil2';
 import {Grafics} from './grafics/grafics'
+import {Bot} from './bot/bot';
 
 export const routes: Routes = [
   { path: 'caixesPokemon', component: CaixesPokemon, canActivate:[guard]},
@@ -31,7 +32,10 @@ export const routes: Routes = [
   { path: 'oblidar-contrasenya', component: OblidarContrasenya },
   { path: 'recuperar-contrasenya/:token', component: RecuperarContrasenya },
   { path: 'grafic', component: Grafics, canActivate:[adminGuard] },
+  { path: 'IA', component: Bot },
+
   { path: '', redirectTo: '/index', pathMatch: 'full' },
+
 
 ];
 

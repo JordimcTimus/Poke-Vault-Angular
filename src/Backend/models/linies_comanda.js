@@ -34,7 +34,7 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: 0
     },
     en_oferta: {
-      type: DataTypes.TINYINT(1),
+      type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: 0
     }
@@ -47,18 +47,24 @@ module.exports = function(sequelize, DataTypes) {
         name: "PRIMARY",
         unique: true,
         using: "BTREE",
-        fields: [{ name: "idlinia" }]
+        fields: [
+          { name: "idlinia" },
+        ]
       },
       {
         name: "fk_linia_comanda",
         using: "BTREE",
-        fields: [{ name: "idcomandes" }]
+        fields: [
+          { name: "idcomandes" },
+        ]
       },
       {
         name: "fk_linia_producte",
         using: "BTREE",
-        fields: [{ name: "idproducte" }]
-      }
+        fields: [
+          { name: "idproducte" },
+        ]
+      },
     ]
   });
 };

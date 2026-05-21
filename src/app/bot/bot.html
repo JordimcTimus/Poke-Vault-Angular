@@ -1,0 +1,31 @@
+<app-capcelera/>
+
+<div class="chat-container">
+
+  <div id="chat" class="chat-body">
+    <div class="spacer"></div>
+    @for (missatge of missatges; track $index) {
+      <div class="missatge" [ngClass]="{
+        'usuari':  missatge.tipus === 'usuari',
+        'bot':     missatge.tipus === 'bot',
+        'cargant': missatge.tipus === 'cargant',
+        'error':   missatge.tipus === 'error'
+      }">
+        {{ missatge.text }}
+      </div>
+    }
+  </div>
+
+  <div class="input-area">
+    <input
+      type="text"
+      [(ngModel)]="pregunta"
+      (keypress)="onEnter($event)"
+      placeholder="Pregunta alguna cosa..."
+      [disabled]="carregant"
+    />
+    <button (click)="enviar()" [disabled]="carregant">
+      {{ carregant ? '...' : 'Enviar' }}
+    </button>
+  </div>
+</div>

@@ -6,6 +6,8 @@ import Swal from 'sweetalert2';
 import {UsuariModels} from '../models/usuari.models';
 import {Page} from '../services/page';
 import * as brcypt from 'bcryptjs';
+import { NgxCaptchaModule } from 'ngx-captcha';
+
 
 
 @Component({
@@ -13,7 +15,8 @@ import * as brcypt from 'bcryptjs';
   standalone: true,
   imports: [
     FormsModule,
-    RouterLink
+    RouterLink,
+    NgxCaptchaModule
   ],
   templateUrl: './sign-up.html',
   styleUrls: ['./sign-up.css'],
@@ -23,6 +26,7 @@ export class SignUp implements OnInit{
   id:any;
   newPassword:String = '';
   isEditing:boolean = false;
+  captchaResolt: boolean = false;
 
   constructor(private auth: AuthService, private s:Page, private route:ActivatedRoute) {}
 
@@ -36,6 +40,11 @@ export class SignUp implements OnInit{
       })
     }
   }
+
+  onCaptchaResolt(token: string | null) {
+    this.captchaResolt = !!token;
+  }
+
   guardar(forma:NgForm){
     Swal.fire({
       icon: 'info',

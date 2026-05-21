@@ -6,9 +6,11 @@ import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 import bcrypt from 'bcryptjs';
 import { getDatabase } from 'firebase-admin/database';
+import { connectDB, getDadesTenda } from './db.IA.js';
+import { preguntarBot } from './bot.js';
 
-//cd .\src\Backend\
-//npx nodemon server.js
+//   cd .\src\Backend\
+//   npx nodemon server.js
 dotenv.config();
 
 const require = createRequire(import.meta.url);
@@ -39,8 +41,11 @@ const rtdb = admin.database();
 const app  = express();
 const PORT = 3000;
 
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:4200'
+}));
 app.use(express.json());
+
 
 const dbSQL        = crearConfigBaseDades();
 
@@ -210,5 +215,20 @@ app.get('/GetVendesOfertaVsSenseOferta', async (req, res) => {
 
   res.json(resultats);
 });
+
+// ================================================================ //
+// ============================= BOT ============================== //
+// ================================================================ //
+
+app.post('/api/chat', async (req, res) => {
+  try {
+    const { pregunta } = req.body;
+    const dades = await getDadesTenda();
+    const resposta = await preguntarBot(pregunta, dades)
+    res.json({ resposta });
+  } catch (error) {
+    console.error('Error bot', error);
+  }
+})
 
 app.listen(PORT, () => console.log(`Servidor en puerto ${PORT}`));
