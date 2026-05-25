@@ -1,0 +1,85 @@
+header {
+  width: 100%;
+  display: flex;              /* Flex principal */
+  justify-content: space-between; /* Separar izquierda/derecha */
+  align-items: center;
+  background-color: black;
+  color: white;
+  padding: 10px 20px;
+}
+
+/* Contenedor izquierda */
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* espacio entre logo y nombre */
+}
+
+/* Contenedor derecha */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* espacio entre usuario, logout, icons */
+}
+
+/* Logo */
+header img.logo {
+  height: 50px;
+  width: 50px;
+}
+
+/* Nombre del sitio */
+header .site-name {
+  font-size: 1.5em;
+  font-family: Impact, serif;
+  margin: 0;
+}
+
+/* Usuario logueado y logout */
+.usuario-logueado,
+.logout {
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.logout:hover {
+  color: red;
+}
+
+/* Iconos login y cesta */
+.header-right a img {
+  height: 40px;
+  width: 40px;
+}
+
+
+nav {
+  background: linear-gradient(90deg, #333333 0%, #a90033 100%);
+  display: flex;
+  justify-content: center; /* Centra los elementos horizontalmente */
+  align-items: center;
+  width: 100%;
+  padding: 8px 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  font-family: Impact, sans-serif;
+}
+
+/* Estilos para los enlaces */
+nav a {
+  text-decoration: none;
+  border: none;
+  color: white;
+  font-size: 1.2em; /* Un poco más grande para que se parezca más a la imagen */
+  padding: 10px 15px; /* Aumenta el padding para que los botones sean más anchos */
+  transition: background-color 0.3s, transform 0.3s;
+  border-radius: 4px; /* Un ligero borde redondeado */
+}
+
+.logout:hover {
+  color: red;
+  cursor:pointer;
+}
+
+.PrimeraLetra::first-letter {
+  font-family: Impact, serif;
+}

@@ -1,0 +1,48 @@
+.contenedor {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 30px;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+.cartas {
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.nombre {
+  font-size: 1.6em;
+
+}
+
+.precio {
+  font-size: 1.5em;
+  color: #ffffff;
+
+}
+
+button {
+  background: transparent;
+  width: 200px;
+  padding: 1em;
+  margin-bottom: 1em;
+  border: none;
+  border-radius: 5000px;
+  backdrop-filter: blur(5px);
+  box-shadow: 4px 4px 60px rgba(0,0,0,0.2);
+  color: #fff;
+  font-family: Montserrat, sans-serif;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+p {
+  font-family: Impact, sans-serif;
+}

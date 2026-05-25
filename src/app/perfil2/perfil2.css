@@ -1,0 +1,162 @@
+:root {
+  --bg:       #111113;
+  --surface:  #1a1a1e;
+  --border:   #2e2e38;
+  --red:      #e8001e;
+  --red-glow: rgba(232,0,30,.25);
+  --gold:     #f5c518;
+  --text:     #e8e8f0;
+  --muted:    #7a7a92;
+}
+
+.perfil-bg {
+  min-height: calc(100vh - 170px);
+  background: var(--bg);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 3rem 1.5rem 4rem;
+  font-family: 'Exo 2', 'Segoe UI', sans-serif;
+}
+
+.perfil-wrapper {
+  width: 100%;
+  max-width: 620px;
+  animation: fade-up .4s ease forwards;
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Header ── */
+.perfil-header {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-bottom: 1.6rem;
+  flex-wrap: wrap;
+}
+
+.avatar-circle {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2a0008, #3d001a);
+  border: 2.5px solid var(--red);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem;
+  box-shadow: 0 0 20px var(--red-glow);
+  flex-shrink: 0;
+}
+
+.header-info { flex: 1; min-width: 0; }
+
+.perfil-title {
+  font-family: 'Rajdhani', 'Segoe UI', sans-serif;
+  font-size: 1.65rem; font-weight: 700;
+  color: var(--text); letter-spacing: .03em;
+  line-height: 1.1;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.perfil-sub {
+  font-size: .8rem; color: var(--muted); margin-top: .2rem;
+}
+
+.badges {
+  display: flex; gap: .4rem; margin-top: .5rem; flex-wrap: wrap;
+}
+
+.badge {
+  padding: .18rem .65rem;
+  border-radius: 4px;
+  font-size: .68rem; font-weight: 700;
+  letter-spacing: .07em; text-transform: uppercase;
+}
+.badge-red  { background: rgba(232,0,30,.14); color: var(--red);  border: 1px solid rgba(232,0,30,.3); }
+.badge-gold { background: rgba(245,197,24,.12); color: var(--gold); border: 1px solid rgba(245,197,24,.28); }
+
+.btn-edit {
+  background: var(--red); color: #fff;
+  border: none; border-radius: 8px;
+  font-family: 'Rajdhani', 'Segoe UI', sans-serif;
+  font-size: .88rem; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+  padding: .6rem 1.3rem;
+  text-decoration: none;
+  box-shadow: 0 4px 14px var(--red-glow);
+  transition: background .2s, transform .15s;
+  white-space: nowrap;
+  display: inline-flex; align-items: center; gap: .3rem;
+}
+.btn-edit:hover {
+  background: #ff1a35;
+  transform: translateY(-1px);
+}
+
+/* ── Info Card ── */
+.info-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.8rem 2rem;
+}
+
+.section-label {
+  font-family: 'Rajdhani', 'Segoe UI', sans-serif;
+  font-size: .78rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .1em;
+  color: var(--red);
+  margin-bottom: 1.2rem;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem 1.5rem;
+}
+
+.info-field {
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+  background: #141418;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: .75rem 1rem;
+  transition: border-color .2s;
+}
+.info-field:hover { border-color: rgba(232,0,30,.3); }
+.info-field.full  { grid-column: 1 / -1; }
+
+.info-label {
+  font-size: .68rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .09em;
+  color: var(--muted);
+}
+
+.info-value {
+  font-size: .95rem; color: var(--text); font-weight: 500;
+}
+.info-value.pass {
+  letter-spacing: .15em; color: var(--muted);
+}
+
+/* ── Divider ── */
+.divider {
+  display: flex; align-items: center; gap: .8rem;
+  margin: 1.4rem 0 1.2rem;
+  color: var(--muted); font-size: .75rem;
+  text-transform: uppercase; letter-spacing: .08em;
+}
+.divider::before, .divider::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+
+/* ── Responsive ── */
+@media (max-width: 500px) {
+  .info-grid { grid-template-columns: 1fr; }
+  .info-card { padding: 1.4rem 1.1rem; }
+  .perfil-title { font-size: 1.3rem; }
+}

@@ -1,0 +1,16 @@
+<body>
+<div class="container">
+  <form (ngSubmit)="login(forma)" #forma="ngForm">
+    <p> Benvingut </p>
+
+    <input type="email" name="email" [(ngModel)]="usuari.email" placeholder="Email" required><br>
+    <input type="password" name="password" [(ngModel)]="usuari.password" placeholder="Contrasenya" required><br>
+
+    <button type="submit" [disabled]="forma.invalid">Entrar</button> <br>
+
+    <a routerLink="/sign-up">Registrar-se</a> <br>
+    <a routerLink="/index">Tornar a l'index</a> <br>
+    <a routerLink="/oblidar-contrasenya">Has oblidat la contrasenya?</a>
+  </form>
+</div>
+</body>

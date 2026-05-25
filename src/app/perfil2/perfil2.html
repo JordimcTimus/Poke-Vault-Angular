@@ -1,0 +1,51 @@
+<app-capcelera/>
+
+<div class="perfil-bg">
+  <div class="perfil-wrapper">
+
+    <div class="perfil-header">
+      <div class="avatar-circle">🎴</div>
+      <div class="header-info">
+        <h1 class="perfil-title">{{ usuari.nom }} {{ usuari.cognom }}</h1>
+        <div class="badges">
+          <span class="badge badge-red">🏆 Elite Trainer</span>
+          <span class="badge badge-gold">⭐ Gold Member</span>
+        </div>
+      </div>
+      <a routerLink="/perfil/{{id}}" class="btn-edit">✏️ Editar</a>
+    </div>
+
+    <div class="info-card">
+
+      <div class="section-label">Dades personals</div>
+
+      <div class="info-grid">
+        <div class="info-field">
+          <span class="info-label">Nom</span>
+          <span class="info-value">{{ usuari.nom }}</span>
+        </div>
+        <div class="info-field">
+          <span class="info-label">Cognom</span>
+          <span class="info-value">{{ usuari.cognom }}</span>
+        </div>
+        <div class="info-field">
+          <span class="info-label">Email</span>
+          <span class="info-value">{{ usuari.email }}</span>
+        </div>
+        <div class="info-field">
+          <span class="info-label">Telèfon</span>
+          <span class="info-value">{{ usuari.telefon }}</span>
+        </div>
+      </div>
+
+      <div class="divider"><span>Contrasenya</span></div>
+
+      <div class="info-grid">
+        <div class="info-field full">
+          <span class="info-label">Contrasenya</span>
+          <span class="info-value pass">••••••••••</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,95 @@
+h1 {
+  display: flex;
+  margin-top: 2em;
+}
+
+h2 {
+  display: flex;
+}
+
+table {
+  margin-bottom: 90px;
+}
+
+.productes {
+  display: flex;
+  height: 200px;
+  padding: 15px;
+  width: 60em;
+  background-color: #333333;
+}
+
+.productes img {
+  height: 200px;
+}
+
+.titulo {
+  font-size: 1.5em;
+  color: #ffffff;
+
+}
+.texto {
+  float: left;
+  color: #ffffff;
+  margin-top: 0px;
+}
+
+.subtotal {
+  display: flex;
+  justify-content: space-between
+}
+
+.final {
+  padding-bottom: 80px
+}
+
+
+.continuar-pedido {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px;
+  text-align: center;
+  z-index: 1000;
+}
+
+.continuar-pedido {
+  display: flex;
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 80px;
+}
+
+.btn-continuar {
+  background: linear-gradient(90deg, #333333 0%, #a90033 100%);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.2em;
+  font-weight: bold;
+  border-radius: 4px 0 0 4px;
+  cursor: pointer;
+  flex: 1;
+  transition: opacity 0.3s;
+  text-align: center;
+}
+
+.btn-continuar:hover {
+  opacity: 0.9;
+}
+
+.totalPrecio {
+  background: linear-gradient(90deg, #a90033 0%, #a90033 100%);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.2em;
+  font-weight: bold;
+  border-radius: 0 4px 4px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  min-width: 200px;
+}

@@ -1,0 +1,40 @@
+<app-capcelera/>
+<div>
+  <div class="contenedor">
+
+    <div class="cartas">
+      <a routerLink="/cartas">
+        <img ngSrc="/assets/Charizard.jpg" alt="no va" class="carta" height="361" width="255">
+      </a>
+      <div class="info_carta">
+        <p class="nombre">Charizard V</p>
+        <p class="precio">19,95€</p>
+      </div>
+      <button (click)="enviarCarritoCarta(12)"> Comprar </button>
+    </div>
+
+    <div class="cartas">
+      <a routerLink="/cartas">
+        <img ngSrc="/assets/Mewtwo.jpg" alt="no va" class="carta" height="361" width="255">
+      </a>
+      <div class="info_carta">
+        <p class="nombre">Mewtwo</p>
+        <p class="precio">15,50€</p>
+      </div>
+      <button (click)="enviarCarritoCarta(13)"> Comprar </button>
+    </div>
+
+    <div class="cartas">
+      <a routerLink="/cartas">
+        <img ngSrc="/assets/Bulbasaur.jpg" alt="no va" class="carta" height="361" width="255">
+      </a>
+      <div class="info_carta">
+        <p class="nombre">Bulbasaur</p>
+        <p class="precio">30,00€</p>
+      </div>
+      <button (click)="enviarCarritoCarta(14)"> Comprar </button>
+    </div>
+
+
+  </div>
+</div>

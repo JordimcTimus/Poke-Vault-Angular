@@ -1,0 +1,44 @@
+h1 {
+  display: flex;
+  margin-top: 2em;
+}
+
+h2 {
+  display: flex;
+}
+
+.productes {
+  display: flex;
+  width: 100%;
+  margin-top: 2em;
+  background-color: #000000;
+}
+
+.productes img {
+  height: 30em;
+}
+
+.producto {
+  background-color: black;
+  padding-left: 20px;
+  width: 50%;
+}
+
+.titulo {
+  font-size: 2em;
+  color: #ffffff;
+
+}
+.texto {
+  float: left;
+  color: #ffffff;
+  margin-top: 0px;
+  font-size: 1em;
+}
+
+.precio {
+  font-size: 2em;
+  color: gray;
+  margin-top: 0px;
+}
+

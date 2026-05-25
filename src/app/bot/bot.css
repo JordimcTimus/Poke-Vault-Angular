@@ -1,0 +1,103 @@
+:host {
+  display: block;
+  height: calc(100vh - 160px); /* 160px = alçada navbar + menu */
+  background: #1a1a2e;
+}
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #1a1a2e;
+}
+
+.chat-header {
+  background: #e63946;
+  color: white;
+  padding: 15px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.chat-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #1a1a2e;
+}
+
+.spacer { flex: 1; }
+
+.missatge {
+  padding: 10px 14px;
+  border-radius: 12px;
+  max-width: 75%;
+  font-size: 14px;
+  word-wrap: break-word;
+  color: white;
+}
+
+.usuari {
+  background: #e63946;
+  align-self: flex-end;
+}
+
+.bot {
+  background: #2a2a4a;
+  color: white;
+  align-self: flex-start;
+}
+
+.cargant {
+  background: #2a2a4a;
+  color: #999;
+  font-style: italic;
+  align-self: flex-start;
+}
+
+.error {
+  background: #c62828;
+  align-self: flex-start;
+}
+
+.input-area {
+  display: flex;
+  padding: 15px;
+  gap: 10px;
+  background: #1a1a2e;
+  border-top: 1px solid #2a2a4a;
+  flex-shrink: 0;
+}
+
+input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #2a2a4a;
+  background: #2a2a4a;
+  color: white;
+  font-size: 14px;
+  outline: none;
+}
+
+input::placeholder { color: #888; }
+input:focus { border-color: #e63946; }
+input:disabled { opacity: 0.5; }
+
+button {
+  padding: 12px 20px;
+  background: #e63946;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover:not(:disabled) { background: #c62828; }
+button:disabled { background: #555; cursor: not-allowed; }

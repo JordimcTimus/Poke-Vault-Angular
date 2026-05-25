@@ -1,0 +1,54 @@
+<header>
+  <!-- IZQUIERDA -->
+  <div class="header-left">
+    <a routerLink="/index">
+      <img class="logo" ngSrc="/assets/Logo.png" alt="Logo" height="50" width="50">
+    </a>
+    <p class="site-name">PokéValue</p>
+  </div>
+
+  <!-- DERECHA -->
+  <div class="header-right" >
+    <p class="usuario-logueado">{{ auth.getCurrentUser()?.nom }}</p>
+    <p class="logout" *ngIf="auth.isLoged()" (click)="logout()">Salir</p>
+    @if (auth.isLoged()) {
+      <a>
+        @if (true){
+          <img   ngSrc="assets/Login_Icon.jpg" height="50" width="50" (click)="obrirPerfil(auth.getCurrentUser()?.id)">
+        }
+      </a>
+        }
+        @else {
+      <a routerLink="/login">
+        <img ngSrc="assets/Login_Icon.jpg" height="50" width="50">
+      </a>
+        }
+    <a routerLink="/cistella">
+      <img ngSrc="assets/compra.webp" height="50" width="50">
+    </a>
+  </div>
+</header>
+
+<nav>
+  <a routerLink="" class="first-link">
+    <img ngSrc="assets/Poké_Ball.png" alt="Poké Ball" height="50" width="50"/>
+    POKE OFERTES
+  </a>
+  <a routerLink="/catalegCartas" class="first-link">
+    <img ngSrc="/assets/cards.webp" alt="Poké Ball" height="50" width="50"/>
+    CARTES POKEMON
+  </a>
+  <!--POKEMON ALEATORIO-->
+  <a routerLink="" class="first-link">
+    <img [src]="imagenPokemon" height="50" width="50" alt="Pokémon" class="PrimeraLetra">
+    {{ nombrePokemon }}
+  </a>
+  <a routerLink="/IA" class="first-link">
+    <img ngSrc="/assets/robot-vectorial-graident-ai_78370-4114-removebg-preview.png" alt="Poké Ball" height="50" width="50"/>
+    IA
+  </a>
+  <a routerLink="/ressenyes" class="first-link">
+    <img ngSrc="/assets/pokebag.webp" alt="Poké Ball" height="50" width="50"/>
+    RESSENYES
+  </a>
+</nav>
