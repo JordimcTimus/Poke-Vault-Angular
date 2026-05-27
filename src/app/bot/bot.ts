@@ -14,7 +14,7 @@ import {Capcelera} from '../capcelera/capcelera';
 })
 export class Bot {
     missatges: any[] = [
-      { text: 'Yepa pregunta lo que quieras panchito', tipus: 'bot' }
+      { text: 'Pregunta el que vulguis', tipus: 'bot' }
     ];
     pregunta: string = '';
     carregant: boolean = false;
