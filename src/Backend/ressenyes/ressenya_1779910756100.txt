@@ -1,0 +1,5 @@
+Data: 2026-05-27T19:39:16.099Z
+Nom: Kevin
+Email: asd
+Títol: hola
+Comentari: aed
