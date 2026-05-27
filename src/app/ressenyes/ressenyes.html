@@ -1,1 +1,19 @@
-<p>ressenyes works!</p>
+<app-capcelera/>
+
+<div class="wrapper">
+  @if (enviat) {
+    <div class="exit"> Ressenya enviada!</div>
+  } @else {
+    <div class="container">
+      <h2>Deixa la teva ressenya</h2>
+      <input [(ngModel)]="nom" name="nom" placeholder="Nom" />
+      <input [(ngModel)]="email" name="email" placeholder="Email" />
+      <input [(ngModel)]="titol" name="titol" placeholder="Títol" />
+      <textarea [(ngModel)]="comentari" name="comentari" placeholder="Comentari"></textarea>
+      <div class="g-recaptcha" data-sitekey="6Ld7E_AsAAAAAEHkjZhDWvWrisxncKGRlkFdbcq5" data-theme="dark"></div>
+      <button (click)="enviar()">Enviar</button>
+    </div>
+
+
+  }
+</div>

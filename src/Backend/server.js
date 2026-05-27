@@ -10,12 +10,14 @@ import { connectDB, getDadesTenda } from './db.IA.js';
 import { preguntarBot } from './bot.js';
 import {Model as liniesComanda} from "sequelize";
 import "./Cron/VaciarCarrito.js"
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 //cd .\src\Backend\
 //npx nodemon server.js
 dotenv.config();
-
-
 
 
 const require = createRequire(import.meta.url);
@@ -294,5 +296,22 @@ app.post('/api/chat', async (req, res) => {
     console.error('Error bot', error);
   }
 })
+
+// ================================================================ //
+// =========================RESSENYES============================== //
+// ================================================================ //
+
+app.post('/api/ressenya', (req, res) => {
+  const { nom, email, titol, comentari } = req.body;
+  const text = `Data: ${new Date().toISOString()}\nNom: ${nom}\nEmail: ${email}\nTítol: ${titol}\nComentari: ${comentari}`;
+  const carpeta = path.join(__dirname, 'ressenyes');
+  if (!fs.existsSync(carpeta)) fs.mkdirSync(carpeta);
+  fs.writeFileSync(path.join(carpeta, `ressenya_${Date.now()}.txt`), text, 'utf-8');
+  res.json({ missatge: 'OK' });
+});
+
+
+
+
 
 app.listen(PORT, () => console.log(`Servidor en puerto ${PORT}`));
